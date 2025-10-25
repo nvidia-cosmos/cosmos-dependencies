@@ -77,4 +77,4 @@ _pip-licenses *args:
   pre-commit run --files ATTRIBUTIONS.md || true
 
 # Check licenses
-license: _license-check _pip-licenses
+license: _licensecheck _pip-licenses

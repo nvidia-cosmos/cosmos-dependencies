@@ -30,6 +30,7 @@ from typing import Annotated
 import parse
 import tyro
 from wheel_filename import parse_wheel_filename
+import urllib.parse
 
 _HTML_TEMPLATE = """<!DOCTYPE html>
 <html>
@@ -107,10 +108,13 @@ def main(args: Args):
         all_wheels[index_name][package_name].append(_WheelInfo(filename=filename, url=url))
 
     for index_name in all_wheels:
-        extra_urls = (args.input_dir / index_name / "extra.txt").read_text().splitlines()
-        for extra_url in extra_urls:
-            filename = extra_url.split("/")[-1]
-            all_wheels[index_name][extra_url].append(_WheelInfo(filename=filename, url=extra_url))
+        urls = (args.input_dir / index_name / "extra.txt").read_text().splitlines()
+        for url in urls:
+            url_parts = urllib.parse.urlparse(url)
+            filename = urllib.parse.unquote(url_parts.path.split("/")[-1])
+            pwf = parse_wheel_filename(filename)
+            package_name = pwf.project.replace("_", "-")
+            all_wheels[index_name][package_name].append(_WheelInfo(filename=filename, url=url))
 
     all_lines: dict[str, list[str]] = collections.defaultdict(list)
 
