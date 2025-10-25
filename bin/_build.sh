@@ -25,6 +25,7 @@ uname -a
 cat /etc/os-release
 ldd --version
 gcc --version
+printenv
 
 echo "Building ${PACKAGE_NAME}=${PACKAGE_VERSION} python=${PYTHON_VERSION} torch=${TORCH_VERSION} cuda=${CUDA_VERSION}" "$@"
 

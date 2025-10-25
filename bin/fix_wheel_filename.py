@@ -32,7 +32,7 @@ class Args:
     cuda: int
     """CUDA version (e.g. 128)."""
     torch: int
-    """Torch version (e.g. 271)."""
+    """Torch version (e.g. 27)."""
 
     dry_run: bool = False
     """If True, do not rename the wheel."""

@@ -83,7 +83,7 @@ def main(args: Args):
 
     # Group wheels by cuda/torch version and package
     all_wheels: dict[str, dict[str, list[_WheelInfo]]] = collections.defaultdict(lambda: collections.defaultdict(list))
-    version_pattern = parse.compile("{version}+cu{cuda_version:3d}.torch{torch_version:3d}", case_sensitive=True)
+    version_pattern = parse.compile("{version}+cu{cuda_version:d}.torch{torch_version:d}", case_sensitive=True)
     for asset in assets:
         filename: str = asset["name"]
         if not filename.endswith(".whl"):
