@@ -58,15 +58,19 @@ def _write_html(html_path: Path, lines: list[str]) -> None:
 
 @dataclass
 class Args:
-    output_path: Annotated[Path, tyro.conf.arg(aliases=("-o",))]
+    input_dir: Annotated[Path, tyro.conf.arg(aliases=("-i",))]
+    """Input directory."""
+    output_dir: Annotated[Path, tyro.conf.arg(aliases=("-o",))]
+    """Output directory."""
     tag: str
+    """Release tag."""
 
     repo: str = "nvidia-cosmos/cosmos-dependencies"
+    """GitHub repository."""
 
 
 def main(args: Args):
-    output_path: Path = args.output_path
-    shutil.rmtree(output_path, ignore_errors=True)
+    shutil.rmtree(args.output_dir, ignore_errors=True)
 
     # Get the assets from the release
     cmd = [
@@ -102,6 +106,12 @@ def main(args: Args):
 
         all_wheels[index_name][package_name].append(_WheelInfo(filename=filename, url=url))
 
+    for index_name in all_wheels:
+        extra_urls = (args.input_dir / index_name / "extra.txt").read_text().splitlines()
+        for extra_url in extra_urls:
+            filename = extra_url.split("/")[-1]
+            all_wheels[index_name][extra_url].append(_WheelInfo(filename=filename, url=extra_url))
+
     all_lines: dict[str, list[str]] = collections.defaultdict(list)
 
     # Create cuda/torch specific indices
@@ -119,23 +129,23 @@ def main(args: Args):
                 package_lines.append(f"<a href='{whl_info.url}'>{whl_info.filename}</a><br>")
             all_lines[package_name].extend(package_lines)
             _write_html(
-                output_path / index_name / "simple" / package_name / "index.html",
+                args.output_dir / index_name / "simple" / package_name / "index.html",
                 package_lines,
             )
 
         _write_html(
-            output_path / index_name / "simple/index.html",
+            args.output_dir / index_name / "simple/index.html",
             index_lines,
         )
 
     # Create global index
     _write_html(
-        output_path / "simple/index.html",
+        args.output_dir / "simple/index.html",
         [_get_index_line(package_name) for package_name in all_lines],
     )
     for package_name, package_lines in all_lines.items():
         _write_html(
-            output_path / "simple" / package_name / "index.html",
+            args.output_dir / "simple" / package_name / "index.html",
             package_lines,
         )
 

@@ -43,6 +43,9 @@ Build a single package:
 
 ```shell
 just build <package_name> <package_version> <python_version> <torch_version> <cuda_version>
+
+# Example
+just build natten 0.21.0 3.12 2.7 12.8
 ```
 
 On the host, fix the file permissions:

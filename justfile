@@ -1,14 +1,20 @@
 default:
   just --list
 
-# Setup the repository
-setup:
+# Install pre-commit
+_pre-commit-install *args:
   uv tool install -U pre-commit
-  pre-commit install -c .pre-commit-config-base.yaml
+  pre-commit install -c .pre-commit-config-base.yaml {{args}}
+
+# Setup the repository
+setup: _pre-commit-install
+
+# Run pre-commit
+_pre-commit *args: setup
+  pre-commit run -a {{args}} || pre-commit run -a {{args}}
 
 # Run linting and formatting
-lint: setup
-  pre-commit run --all-files || pre-commit run --all-files
+lint: _pre-commit
 
 # Build a package.
 build package_name package_version python_version torch_version cuda_version *args:
@@ -43,22 +49,32 @@ tag := 'v' + version
 index_dir := 'docs/' + tag
 
 # Create the package index
-index-create:
-  uv run bin/create_index.py -o {{index_dir}} --tag={{tag}}
+index-create *args:
+  uv run bin/create_index.py -i assets -o {{index_dir}} --tag={{tag}} {{args}}
+
+# Test the package index
+_index-test:
+  just -f {{source_file()}} index-create -o tmp/{{index_dir}}
 
 # Locally serve the package index
-index-serve: index-create
-  uv run -m http.server -d {{index_dir}}
+index-serve *args: index-create
+  uv run -m http.server -d {{index_dir}} {{args}}
 
-test: lint
-  uv run bin/create_index.py -o tmp/{{index_dir}} --tag={{tag}}
+# Run tests
+test: lint _index-test
 
 # https://spdx.org/licenses/
 allow_licenses := "MIT BSD-2-CLAUSE BSD-3-CLAUSE APACHE-2.0 ISC"
 ignore_package_licenses := "nvidia-*"
 
-# Check licenses
-license:
-  uv run --all-groups licensecheck --show-only-failing --only-licenses {{allow_licenses}} --ignore-packages {{ignore_package_licenses}} --zero
-  uv run --all-groups pip-licenses --python .venv/bin/python --format=plain-vertical --with-license-file --no-license-path --no-version --with-urls --output-file ATTRIBUTIONS.md
+# Run licensecheck
+_licensecheck *args:
+  uv run --all-groups licensecheck --show-only-failing --only-licenses {{allow_licenses}} --ignore-packages {{ignore_package_licenses}} --zero {{args}}
+
+# Run pip-licenses
+_pip-licenses *args:
+  uv run --all-groups pip-licenses --python .venv/bin/python --format=plain-vertical --with-license-file --no-license-path --no-version --with-urls --output-file ATTRIBUTIONS.md {{args}}
   pre-commit run --files ATTRIBUTIONS.md || true
+
+# Check licenses
+license: _license-check _pip-licenses
