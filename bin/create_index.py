@@ -108,8 +108,11 @@ def main(args: Args):
         all_wheels[index_name][package_name].append(_WheelInfo(filename=filename, url=url))
 
     for index_name in all_wheels:
-        urls = (args.input_dir / index_name / "extra.txt").read_text().splitlines()
+        urls = (args.input_dir / index_name / "urls.txt").read_text().splitlines()
         for url in urls:
+            url = url.strip()
+            if not url or url.startswith("#"):
+                continue
             url_parts = urllib.parse.urlparse(url)
             filename = urllib.parse.unquote(url_parts.path.split("/")[-1])
             pwf = parse_wheel_filename(filename)

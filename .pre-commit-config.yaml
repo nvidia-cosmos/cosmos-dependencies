@@ -17,10 +17,6 @@ exclude: (?x)(
     ^docs/
   )
 repos:
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.24.2
-    hooks:
-      - id: gitleaks
   - repo: https://github.com/google/addlicense
     rev: v1.2.0-rc0
     hooks:

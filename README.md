@@ -71,6 +71,14 @@ just index-create
 
 1. Open a PR and merge to [cosmos-dependencies](https://github.com/nvidia-cosmos/cosmos-dependencies).
 
+## Bump Version
+
+```shell
+gh release download --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) -D tmp/assets --pattern '*'
+uv version --bump minor
+gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) tmp/assets/*
+```
+
 ## Contributing
 
 We thrive on community collaboration! [NVIDIA-Cosmos](https://github.com/nvidia-cosmos/) wouldn't be where it is without contributions from developers like you. Check out our [Contributing Guide](CONTRIBUTING.md) to get started, and share your feedback through issues.
