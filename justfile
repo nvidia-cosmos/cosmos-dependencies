@@ -21,8 +21,7 @@ build package_name package_version python_version torch_version cuda_version *ar
   ./bin/build.sh {{package_name}} {{package_version}} {{python_version}} {{torch_version}} {{cuda_version}} {{args}}
 
 # Build a dummy package.
-build-dummy:
-  ./bin/build.sh cosmos-dummy 0.1.0 3.10 2.7 12.8
+build-dummy: (build 'cosmos-dummy' '0.1.0' '3.10' '2.7' '12.8')
 
 # Run the docker container.
 _docker base_image build_args='' run_args='':
@@ -33,16 +32,13 @@ _docker base_image build_args='' run_args='':
   docker run --rm -v .:/app -v /app/.venv -v /root/.cache/uv:/root/.cache/uv -it {{run_args}} $image_tag
 
 # Run the CUDA 12.6 docker container.
-docker-cu126:
-  just -f "{{source_file()}}" _docker nvidia/cuda:12.6.3-cudnn-devel-ubuntu20.04
+docker-cu126: (_docker 'nvidia/cuda:12.6.3-cudnn-devel-ubuntu20.04')
 
 # Run the CUDA 12.8 docker container.
-docker-cu128:
-  just -f "{{source_file()}}" _docker nvidia/cuda:12.8.1-cudnn-devel-ubuntu20.04
+docker-cu128: (_docker 'nvidia/cuda:12.8.1-cudnn-devel-ubuntu20.04')
 
 # Run the CUDA 13.0 docker container.
-docker-cu130:
-  just -f "{{source_file()}}" _docker nvidia/cuda:13.0.1-cudnn-devel-ubuntu22.04
+docker-cu130: (_docker 'nvidia/cuda:13.0.1-cudnn-devel-ubuntu22.04')
 
 version := `uv version --short`
 tag := 'v' + version
@@ -53,8 +49,7 @@ index-create *args:
   uv run bin/create_index.py -i assets -o {{index_dir}} --tag={{tag}} {{args}}
 
 # Test the package index
-_index-test:
-  just -f {{source_file()}} index-create -o tmp/{{index_dir}}
+_index-test: (index-create '-o' 'tmp/' + index_dir)
 
 # Locally serve the package index
 index-serve *args: index-create
