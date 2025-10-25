@@ -65,8 +65,6 @@ deactivate
 popd || exit 1
 
 # Fix wheel filenames.
-for whl_path in "${OUTPUT_DIR}"/*.whl; do
-	uv run bin/fix_wheel_filename.py -i "${whl_path}" --cuda="${CUDA_NAME}" --torch="${TORCH_NAME}"
-done
+uv run bin/fix_wheel_filename.py -i "${OUTPUT_DIR}"/*.whl --cuda="${CUDA_NAME}" --torch="${TORCH_NAME}"
 
 ccache --show-stats

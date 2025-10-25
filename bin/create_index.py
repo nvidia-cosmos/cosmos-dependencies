@@ -88,6 +88,8 @@ def main(args: Args):
 
     # Group wheels by cuda/torch version and package
     all_wheels: dict[str, dict[str, list[_WheelInfo]]] = collections.defaultdict(lambda: collections.defaultdict(list))
+    
+    # Get wheels from release assets
     version_pattern = parse.compile("{version}+cu{cuda_version:d}.torch{torch_version:d}", case_sensitive=True)
     for asset in assets:
         filename: str = asset["name"]
@@ -107,14 +109,20 @@ def main(args: Args):
 
         all_wheels[index_name][package_name].append(_WheelInfo(filename=filename, url=url))
 
-    for index_name in all_wheels:
-        urls = (args.input_dir / index_name / "urls.txt").read_text().splitlines()
+    # Parse urls.txt files
+    urls_files = args.input_dir.glob("*/urls.txt")
+    assert urls_files
+    for urls_file in urls_files:
+        index_name = urls_file.parent.name
+        urls = urls_file.read_text().splitlines()
+        assert urls
         for url in urls:
             url = url.strip()
             if not url or url.startswith("#"):
+                # Skip comments and empty lines
                 continue
             url_parts = urllib.parse.urlparse(url)
-            filename = urllib.parse.unquote(url_parts.path.split("/")[-1])
+            filename = urllib.parse.unquote(url_parts.path.rsplit("/", 1)[-1])
             pwf = parse_wheel_filename(filename)
             package_name = pwf.project.replace("_", "-")
             all_wheels[index_name][package_name].append(_WheelInfo(filename=filename, url=url))
