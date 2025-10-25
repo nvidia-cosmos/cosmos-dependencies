@@ -25,11 +25,12 @@ RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
     apt-get update && \
     apt-get install -y --no-install-recommends \
+        ccache \
         curl \
         git-lfs \
         tree
 
-ENV PATH="/usr/local/bin:$PATH"
+ENV PATH="/usr/lib/ccache:/usr/local/bin:$PATH"
 
 # Install uv: https://docs.astral.sh/uv/getting-started/installation/
 # https://github.com/astral-sh/uv-docker-example/blob/main/Dockerfile

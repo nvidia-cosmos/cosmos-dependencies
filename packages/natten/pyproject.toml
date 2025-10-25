@@ -20,6 +20,8 @@ requires-python = ">=3.10"
 dependencies = [
     "cosmos-dependencies[build]",
     "cmake==3.*",
+    # https://github.com/SHI-Labs/NATTEN/blob/main/pyproject.toml#L2
+    "setuptools >= 64",
 ]
 
 [tool.uv.sources]

@@ -19,6 +19,8 @@ package_dir="${root_dir}/packages/${PACKAGE_NAME}"
 CUDA_NAME="${CUDA_VERSION//./}"
 TORCH_NAME="${TORCH_VERSION//./}"
 
+echo "Building ${PACKAGE_NAME}=${PACKAGE_VERSION} python=${PYTHON_VERSION} torch=${TORCH_VERSION} cuda=${CUDA_VERSION}" "$@"
+
 # Print system information.
 date
 uname -a
@@ -27,7 +29,9 @@ ldd --version
 gcc --version
 printenv
 
-echo "Building ${PACKAGE_NAME}=${PACKAGE_VERSION} python=${PYTHON_VERSION} torch=${TORCH_VERSION} cuda=${CUDA_VERSION}" "$@"
+# Configure ccache
+ccache --zero-stats
+export CCACHE_NOHASHDIR="true"
 
 # Set CUDA environment variables
 export CUDA_HOME="/usr/local/cuda-${CUDA_VERSION}"
@@ -64,3 +68,5 @@ popd || exit 1
 for whl_path in "${OUTPUT_DIR}"/*.whl; do
 	uv run bin/fix_wheel_filename.py -i "${whl_path}" --cuda="${CUDA_NAME}" --torch="${TORCH_NAME}"
 done
+
+ccache --show-stats

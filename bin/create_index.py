@@ -22,6 +22,7 @@ import collections
 import json
 import shutil
 import subprocess
+import urllib.parse
 import warnings
 from dataclasses import dataclass
 from pathlib import Path
@@ -30,7 +31,6 @@ from typing import Annotated
 import parse
 import tyro
 from wheel_filename import parse_wheel_filename
-import urllib.parse
 
 _HTML_TEMPLATE = """<!DOCTYPE html>
 <html>
