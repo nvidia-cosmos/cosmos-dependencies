@@ -45,7 +45,7 @@ uv venv --clear --python "${PYTHON_VERSION}" "${venv_dir}"
 # shellcheck source=/dev/null
 source "${venv_dir}/bin/activate"
 uv sync --active
-uv pip install "torch==${TORCH_VERSION}" --index-url "https://download.pytorch.org/whl/cu${CUDA_NAME}"
+uv pip install "torch==${TORCH_VERSION}.*" --index-url "https://download.pytorch.org/whl/cu${CUDA_NAME}"
 
 # Set build environment variables
 eval "$(python -c "

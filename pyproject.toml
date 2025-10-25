@@ -40,12 +40,12 @@ dev = [
 ]
 # Wheel packages for license check.
 packages = [
-    "apex==0.1.0",
-    "flash-attn==2.6.3",
-    "natten==0.21.0",
-    "torch==2.7.1",
-    "torchvision==0.22.1",
-    "transformer-engine==1.13",
+    "apex",
+    "flash-attn",
+    "natten",
+    "torch",
+    "torchvision",
+    "transformer-engine",
 ]
 
 [tool.uv.sources]
@@ -58,7 +58,7 @@ transformer-engine = [{ index = "cosmos" }]
 
 [[tool.uv.index]]
 name = "cosmos"
-url = "https://nvidia-cosmos.github.io/cosmos-dependencies/simple"
+url = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.1.0/simple"
 explicit = true
 
 [build-system]

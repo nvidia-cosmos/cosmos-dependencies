@@ -16,7 +16,7 @@ build package_name package_version python_version torch_version cuda_version *ar
 
 # Build a dummy package.
 build-dummy:
-  ./bin/build.sh cosmos-dummy 0.1.0 3.10 2.7.1 12.8
+  ./bin/build.sh cosmos-dummy 0.1.0 3.10 2.7 12.8
 
 # Run the docker container.
 _docker base_image build_args='' run_args='':

@@ -37,8 +37,8 @@ if [[ ! "${PYTHON_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
 	echo "Error: Python version must be '<major>.<minor>'." >&2
 	exit 1
 fi
-if [[ ! "${TORCH_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-	echo "Error: Torch version must be '<major>.<minor>.<patch>'" >&2
+if [[ ! "${TORCH_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
+	echo "Error: Torch version must be '<major>.<minor>'" >&2
 	exit 1
 fi
 if [[ ! "${CUDA_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
@@ -53,6 +53,8 @@ rm -rf "${OUTPUT_DIR}"
 mkdir -p "${OUTPUT_DIR}"
 log_file="${OUTPUT_DIR}/build.log"
 echo "Logging to ${log_file}"
+
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 env -i \
 	PACKAGE_NAME="${PACKAGE_NAME}" \
 	PACKAGE_VERSION="${PACKAGE_VERSION}" \
@@ -61,7 +63,9 @@ env -i \
 	CUDA_VERSION="${CUDA_VERSION}" \
 	OUTPUT_DIR="${OUTPUT_DIR}" \
 	PATH="${PATH:-}" \
-	XDG_CACHE_HOME="${XDG_CACHE_HOME:-}" \
-	UV_CACHE_DIR="${UV_CACHE_DIR:-}" \
-	PIP_CACHE_DIR="${PIP_CACHE_DIR:-}" \
+	HOME="${HOME:-}" \
+	USER="${USER:-}" \
+	XDG_CACHE_HOME="${XDG_CACHE_HOME}" \
+	UV_CACHE_DIR="${UV_CACHE_DIR:-$XDG_CACHE_HOME/uv}" \
+	PIP_CACHE_DIR="${PIP_CACHE_DIR:-$XDG_CACHE_HOME/pip}" \
 	bash -euxo pipefail "bin/_build.sh" "$@" |& tee "${log_file}"
