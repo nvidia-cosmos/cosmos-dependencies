@@ -37,6 +37,9 @@ Run the docker container:
 
 ```shell
 just docker-<cuda_version>
+
+# Example
+just docker-cu128
 ```
 
 Build a single package:
@@ -46,12 +49,6 @@ just build <package_name> <package_version> <python_version> <torch_version> <cu
 
 # Example
 just build natten 0.21.0 3.12 2.7 12.8
-```
-
-On the host, fix the file permissions:
-
-```shell
-sudo chown $USER -R .
 ```
 
 ## Upload Wheels
@@ -65,7 +62,7 @@ just upload
 1. Create and locally host the package index
 
 ```shell
-just index-create
+just index-serve
 ```
 
 1. Open a PR and merge to [cosmos-dependencies](https://github.com/nvidia-cosmos/cosmos-dependencies).
