@@ -13,4 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-pip download --no-deps --only-binary=":all:" "torchvision==${PACKAGE_VERSION}" --index-url "https://download.pytorch.org/whl/cu${CUDA_NAME}" -d "${OUTPUT_DIR}"
+[project]
+name = "flash-attn-3"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "cosmos-dependencies[build]",
+    "psutil",
+]
+
+[tool.uv.sources]
+cosmos-dependencies = { path = "../.." }

@@ -27,9 +27,18 @@ build-dummy: (build 'cosmos-dummy' '0.1.0' '3.10' '2.7' '12.8')
 _docker base_image build_args='' run_args='':
   #!/usr/bin/env bash
   set -euxo pipefail
-  docker build --build-arg BASE_IMAGE={{base_image}} {{build_args}} .
-  image_tag=$(docker build --build-arg BASE_IMAGE={{base_image}} {{build_args}} . -q)
-  docker run --rm -v .:/app -v /app/.venv -v /root/.cache/uv:/root/.cache/uv -it {{run_args}} $image_tag
+  docker build --build-arg=BASE_IMAGE={{base_image}} {{build_args}} .
+  image_tag=$(docker build --build-arg=BASE_IMAGE={{base_image}} {{build_args}} . -q)
+  docker run \
+    -it \
+    --rm \
+    -v .:/app \
+    -v /app/.venv \
+    -v /root/.cache/uv:/root/.cache/uv \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
+    --user=$(id -u):$(id -g) \
+    {{run_args}} $image_tag
 
 # Run the CUDA 12.6 docker container.
 docker-cu126: (_docker 'nvidia/cuda:12.6.3-cudnn-devel-ubuntu20.04')
@@ -40,6 +49,10 @@ docker-cu128: (_docker 'nvidia/cuda:12.8.1-cudnn-devel-ubuntu20.04')
 # Run the CUDA 13.0 docker container.
 docker-cu130: (_docker 'nvidia/cuda:13.0.1-cudnn-devel-ubuntu22.04')
 
+upload:
+  gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) build/**/*.whl
+  rm -rf build/**/*.whl
+
 version := `uv version --short`
 tag := 'v' + version
 index_dir := 'docs/' + tag
@@ -48,12 +61,12 @@ index_dir := 'docs/' + tag
 index-create *args:
   uv run bin/create_index.py -i assets -o {{index_dir}} --tag={{tag}} {{args}}
 
-# Test the package index
-_index-test: (index-create '-o' 'tmp/' + index_dir)
-
 # Locally serve the package index
 index-serve *args: index-create
   uv run -m http.server -d {{index_dir}} {{args}}
+
+# Test the package index
+_index-test: (index-create '-o' 'tmp/' + index_dir)
 
 # Run tests
 test: lint _index-test

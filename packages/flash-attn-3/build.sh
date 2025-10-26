@@ -13,4 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-pip download --no-deps --only-binary=":all:" "torch==${PACKAGE_VERSION}" --index-url "https://download.pytorch.org/whl/cu${CUDA_NAME}" -d "${OUTPUT_DIR}"
+# https://github.com/Dao-AILab/flash-attention?tab=readme-ov-file#installation-and-features
+export MAX_JOBS=${MAX_JOBS:-$(($(nproc) / 2))}
+
+pip wheel \
+	-v \
+	--no-deps \
+	--no-build-isolation \
+	--check-build-dependencies \
+	--wheel-dir="${OUTPUT_DIR}" \
+	"git+https://github.com/Dao-AILab/flash-attention.git@v${PACKAGE_VERSION}#subdirectory=hopper" \
+	"$@"

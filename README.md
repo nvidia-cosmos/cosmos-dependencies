@@ -59,8 +59,7 @@ sudo chown $USER -R .
 1. Upload wheels
 
 ```shell
-gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) build/**/*.whl
-rm -rf build/**/*.whl
+just upload
 ```
 
 1. Create and locally host the package index
