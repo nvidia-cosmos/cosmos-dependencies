@@ -18,7 +18,7 @@ exclude: (?x)(
   )
 repos:
   - repo: https://github.com/google/addlicense
-    rev: v1.2.0-rc0
+    rev: v1.2.0
     hooks:
       - id: addlicense
         args: ["-f", "bin/license.txt"]
@@ -37,7 +37,7 @@ repos:
         language: script
         files: pyproject\.toml$
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.7
+    rev: v0.14.2
     hooks:
       - id: ruff-check
         args: [--fix]
