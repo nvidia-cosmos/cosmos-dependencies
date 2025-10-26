@@ -1,3 +1,2 @@
-# NEVER REMOVE ENTRIES FROM THIS FILE
 https://download.pytorch.org/whl/cu128/torch-2.8.0%2Bcu128-cp310-cp310-manylinux_2_28_x86_64.whl#sha256=0c96999d15cf1f13dd7c913e0b21a9a355538e6cfc10861a17158320292f5954
 https://download.pytorch.org/whl/cu128/torchvision-0.23.0%2Bcu128-cp310-cp310-manylinux_2_28_x86_64.whl#sha256=460bc8d70f63bdb433a7351decc2c1ae1903f7f378e4a7614fc8e8c97a5c36aa
