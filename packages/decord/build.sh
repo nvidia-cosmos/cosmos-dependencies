@@ -19,5 +19,5 @@ pip wheel \
 	--no-build-isolation \
 	--check-build-dependencies \
 	--wheel-dir="${OUTPUT_DIR}" \
-	"git+https://github.com/dmlc/decord.git@v${PACKAGE_VERSION}" \
+	"git+https://github.com/dmlc/decord.git@v${PACKAGE_VERSION}#subdirectory=python" \
 	"$@"
