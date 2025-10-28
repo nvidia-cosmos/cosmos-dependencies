@@ -13,11 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-pip wheel \
-	-v \
-	--no-deps \
-	--no-build-isolation \
-	--check-build-dependencies \
-	--wheel-dir="${OUTPUT_DIR}" \
-	"git+https://github.com/dmlc/decord.git@v${PACKAGE_VERSION}" \
-	"$@"
+[project]
+name = "flash-attn"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "cosmos-dependencies[build]",
+]
+
+[tool.uv.sources]
+cosmos-dependencies = { path = "../.." }
