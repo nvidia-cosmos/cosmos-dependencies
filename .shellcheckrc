@@ -1,1 +1,2 @@
 disable=SC1008 # shebang unrecognized
+disable=SC2164 # cd fail

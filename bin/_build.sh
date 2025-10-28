@@ -43,7 +43,7 @@ echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
 nvcc --version
 
 # Install build dependencies
-pushd "${package_dir}" || exit 1
+pushd "${package_dir}"
 venv_dir="$(uv cache dir)/cosmos_dependencies/venv"
 uv venv --clear --python "${PYTHON_VERSION}" "${venv_dir}"
 # shellcheck source=/dev/null
