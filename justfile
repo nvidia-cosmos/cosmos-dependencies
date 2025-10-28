@@ -51,7 +51,7 @@ docker-cu130: (_docker 'nvidia/cuda:13.0.1-cudnn-devel-ubuntu22.04')
 
 upload:
   gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) build/**/*.whl
-  rm -rf build/**/*.whl
+  rm -rfv build/**/*.whl
 
 version := `uv version --short`
 tag := 'v' + version
