@@ -112,10 +112,10 @@ def main(args: Args):
         all_wheels[index_name][package_name].append(_WheelInfo(filename=filename, url=url))
 
     # Parse urls.txt files
-    urls_files = args.input_dir.glob("*/urls.txt")
+    urls_files = args.input_dir.glob("*.txt")
     assert urls_files
     for urls_file in urls_files:
-        index_name = urls_file.parent.name
+        index_name = urls_file.stem
         urls = urls_file.read_text().splitlines()
         assert urls
         for url in urls:
@@ -161,6 +161,7 @@ def main(args: Args):
         [_get_index_line(package_name) for package_name in all_lines],
     )
     for package_name, package_lines in all_lines.items():
+        package_lines = sorted(set(package_lines))
         _write_html(
             args.output_dir / "simple" / package_name / "index.html",
             package_lines,
