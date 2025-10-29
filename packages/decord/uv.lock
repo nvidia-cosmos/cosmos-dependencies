@@ -63,6 +63,7 @@ provides-extras = ["build"]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "change-wheel-version", specifier = ">=0.6.0" },
     { name = "licensecheck", specifier = ">=2025.1.0" },
     { name = "parse", specifier = ">=1.20.2" },
     { name = "pip-licenses", specifier = ">=5.5.0" },

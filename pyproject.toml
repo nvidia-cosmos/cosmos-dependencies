@@ -32,6 +32,7 @@ build = [
 
 [dependency-groups]
 dev = [
+    "change-wheel-version>=0.6.0",
     "licensecheck>=2025.1.0",
     "parse>=1.20.2",
     "pip-licenses>=5.5.0",

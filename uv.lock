@@ -80,6 +80,20 @@ wheels = [
 ]
 
 [[package]]
+name = "change-wheel-version"
+version = "0.6.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "installer" },
+    { name = "packaging" },
+    { name = "wheel" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d7/2c/82f4d49f940d499e0d5789e1aa713ef95558f32969d7d192416c70b3cf65/change_wheel_version-0.6.0.tar.gz", hash = "sha256:63ceddbb3b630f3fca5901910af859137c9a5cae5f1d0abd4815a4cc4638aa99", size = 4192, upload-time = "2024-09-12T23:15:44.47Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/66/e6/53594793da46da734521e116e66e443dad18f35659f2c94dd805a38a0505/change_wheel_version-0.6.0-py3-none-any.whl", hash = "sha256:c79ec22867d96174b0eb141d6001e2e62f3d0df74a7b573ed6f540b88861af92", size = 4952, upload-time = "2024-09-12T23:15:42.996Z" },
+]
+
+[[package]]
 name = "charset-normalizer"
 version = "3.4.4"
 source = { registry = "https://pypi.org/simple" }
@@ -222,6 +236,7 @@ build = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "change-wheel-version" },
     { name = "licensecheck" },
     { name = "parse" },
     { name = "pip-licenses" },
@@ -251,6 +266,7 @@ provides-extras = ["build"]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "change-wheel-version", specifier = ">=0.6.0" },
     { name = "licensecheck", specifier = ">=2025.1.0" },
     { name = "parse", specifier = ">=1.20.2" },
     { name = "pip-licenses", specifier = ">=5.5.0" },
@@ -358,6 +374,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/76/66/650a33bd90f786193e4de4b3ad86ea60b53c89b669a5c7be931fac31cdb0/importlib_metadata-8.7.0.tar.gz", hash = "sha256:d13b81ad223b890aa16c5471f2ac3056cf76c5f10f82d6f9292f0b415f389000", size = 56641, upload-time = "2025-04-27T15:29:01.736Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/20/b0/36bd937216ec521246249be3bf9855081de4c5e06a0c9b4219dbeda50373/importlib_metadata-8.7.0-py3-none-any.whl", hash = "sha256:e5dd1551894c77868a30651cef00984d50e1002d06942a7101d34870c5f02afd", size = 27656, upload-time = "2025-04-27T15:29:00.214Z" },
+]
+
+[[package]]
+name = "installer"
+version = "0.7.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/05/18/ceeb4e3ab3aa54495775775b38ae42b10a92f42ce42dfa44da684289b8c8/installer-0.7.0.tar.gz", hash = "sha256:a26d3e3116289bb08216e0d0f7d925fcef0b0194eedfa0c944bcaaa106c4b631", size = 474349, upload-time = "2023-03-17T20:39:38.871Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e5/ca/1172b6638d52f2d6caa2dd262ec4c811ba59eee96d54a7701930726bce18/installer-0.7.0-py3-none-any.whl", hash = "sha256:05d1933f0a5ba7d8d6296bb6d5018e7c94fa473ceb10cf198a92ccea19c27b53", size = 453838, upload-time = "2023-03-17T20:39:36.219Z" },
 ]
 
 [[package]]
