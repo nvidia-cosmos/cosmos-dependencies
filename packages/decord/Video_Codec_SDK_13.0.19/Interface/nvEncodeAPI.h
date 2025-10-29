@@ -2253,7 +2253,7 @@ typedef struct _NV_ENC_INITIALIZE_PARAMS
                                                                                            Not supported if any of the following features: weighted prediction, alpha layer encoding,
                                                                                            subframe mode, output into video memory buffer, picture timing/buffering period SEI message
                                                                                            insertion with DX12 interface are enabled in case of HEVC.
-                                                                                           For AV1, split encoding is not supported when output into video memory buffer is enabled. 
+                                                                                           For AV1, split encoding is not supported when output into video memory buffer is enabled.
                                                                                            For valid values see ::NV_ENC_SPLIT_ENCODE_MODE enum.*/
     uint32_t                                   enableOutputInVidmem      :1;    /**< [in]: Set this to 1 to enable output of NVENC in video memory buffer created by application. This feature is not supported for HEVC ME only mode. */
     uint32_t                                   enableReconFrameOutput    :1;    /**< [in]: Set this to 1 to enable reconstructed frame output. */
@@ -4660,4 +4660,3 @@ NVENCSTATUS NVENCAPI NvEncodeAPICreateInstance(NV_ENCODE_API_FUNCTION_LIST *func
 
 
 #endif
-

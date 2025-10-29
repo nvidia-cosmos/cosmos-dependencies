@@ -32,7 +32,8 @@ export TORCH_VERSION="${1}"
 shift
 export CUDA_VERSION="${1}"
 shift
-export BUILD_DIR="$(abspath "${1}")"
+BUILD_DIR="$(abspath "${1}")"
+export BUILD_DIR="${BUILD_DIR}"
 shift
 
 if [[ ! "${PYTHON_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
