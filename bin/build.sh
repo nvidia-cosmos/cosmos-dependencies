@@ -32,6 +32,8 @@ export TORCH_VERSION="${1}"
 shift
 export CUDA_VERSION="${1}"
 shift
+export BUILD_DIR="$(abspath "${1}")"
+shift
 
 if [[ ! "${PYTHON_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
 	echo "Error: Python version must be '<major>.<minor>'." >&2
@@ -46,9 +48,8 @@ if [[ ! "${CUDA_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
 	exit 1
 fi
 
-root_dir="$(pwd)"
 name="${PACKAGE_NAME//-/_}-${PACKAGE_VERSION}-py${PYTHON_VERSION}-cu${CUDA_VERSION}-torch${TORCH_VERSION}"
-export OUTPUT_DIR="${root_dir}/build/${name}"
+export OUTPUT_DIR="${BUILD_DIR}/${name}"
 rm -rf "${OUTPUT_DIR}"
 mkdir -p "${OUTPUT_DIR}"
 log_file="${OUTPUT_DIR}/build.log"
