@@ -44,8 +44,7 @@ nvcc --version
 
 # Install build dependencies
 pushd "${package_dir}"
-temp_dir="$(mktemp -d /tmp/cosmos-dependencies-XXXXXXXX)"
-venv_dir="${temp_dir}/venv"
+venv_dir="$(uv cache dir)/cosmos-dependencies/${OUTPUT_NAME}"
 uv venv --python "${PYTHON_VERSION}" "${venv_dir}"
 # shellcheck source=/dev/null
 source "${venv_dir}/bin/activate"
@@ -63,7 +62,7 @@ echo "_GLIBCXX_USE_CXX11_ABI=${_GLIBCXX_USE_CXX11_ABI}"
 # shellcheck source=/dev/null
 source "${package_dir}/build.sh" "$@"
 deactivate
-rm -rf "${temp_dir}"
+rm -rf "${venv_dir}"
 popd || exit 1
 
 # Fix wheel filenames.

@@ -32,8 +32,7 @@ export TORCH_VERSION="${1}"
 shift
 export CUDA_VERSION="${1}"
 shift
-BUILD_DIR="$(abspath "${1}")"
-export BUILD_DIR="${BUILD_DIR}"
+export BUILD_DIR="${1}"
 shift
 
 if [[ ! "${PYTHON_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
@@ -49,25 +48,35 @@ if [[ ! "${CUDA_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
 	exit 1
 fi
 
-name="${PACKAGE_NAME//-/_}-${PACKAGE_VERSION}-py${PYTHON_VERSION}-cu${CUDA_VERSION}-torch${TORCH_VERSION}"
-export OUTPUT_DIR="${BUILD_DIR}/${name}"
+timestamp=$(date +%Y%m%d%H%M%S)
+export OUTPUT_NAME="${PACKAGE_NAME//-/_}-${PACKAGE_VERSION}-py${PYTHON_VERSION}-cu${CUDA_VERSION}-torch${TORCH_VERSION}-${timestamp}"
+OUTPUT_DIR="${BUILD_DIR}/${OUTPUT_NAME}"
 rm -rf "${OUTPUT_DIR}"
 mkdir -p "${OUTPUT_DIR}"
+OUTPUT_DIR="$(realpath "${OUTPUT_DIR}")"
+export OUTPUT_DIR="${OUTPUT_DIR}"
 log_file="${OUTPUT_DIR}/build.log"
 echo "Logging to ${log_file}"
 
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_BIN_HOME="${XDG_BIN_HOME:-$XDG_DATA_HOME/../bin}"
+export UV_CACHE_DIR="${UV_CACHE_DIR:-$XDG_CACHE_HOME/uv}"
+export PIP_CACHE_DIR="${PIP_CACHE_DIR:-$XDG_CACHE_HOME/pip}"
 env -i \
 	PACKAGE_NAME="${PACKAGE_NAME}" \
 	PACKAGE_VERSION="${PACKAGE_VERSION}" \
 	PYTHON_VERSION="${PYTHON_VERSION}" \
 	TORCH_VERSION="${TORCH_VERSION}" \
 	CUDA_VERSION="${CUDA_VERSION}" \
+	OUTPUT_NAME="${OUTPUT_NAME}" \
 	OUTPUT_DIR="${OUTPUT_DIR}" \
 	PATH="${PATH:-}" \
 	HOME="${HOME:-}" \
 	USER="${USER:-}" \
 	XDG_CACHE_HOME="${XDG_CACHE_HOME}" \
-	UV_CACHE_DIR="${UV_CACHE_DIR:-$XDG_CACHE_HOME/uv}" \
-	PIP_CACHE_DIR="${PIP_CACHE_DIR:-$XDG_CACHE_HOME/pip}" \
+	XDG_DATA_HOME="${XDG_DATA_HOME}" \
+	XDG_BIN_HOME="${XDG_BIN_HOME}" \
+	UV_CACHE_DIR="${UV_CACHE_DIR}" \
+	PIP_CACHE_DIR="${PIP_CACHE_DIR}" \
 	bash -euxo pipefail "bin/_build.sh" "$@" |& tee "${log_file}"

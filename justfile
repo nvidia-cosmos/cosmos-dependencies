@@ -29,12 +29,16 @@ _docker base_image build_args='' run_args='':
   set -euxo pipefail
   docker build --build-arg=BASE_IMAGE={{base_image}} {{build_args}} .
   image_tag=$(docker build --build-arg=BASE_IMAGE={{base_image}} {{build_args}} . -q)
+  export XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.cache}
+  export XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}
+  export XDG_BIN_HOME=${XDG_BIN_HOME:-${XDG_DATA_HOME}/../bin}
   docker run \
     -it \
     --rm \
     -v .:/app \
-    -v /app/.venv \
-    -v /root/.cache/uv:/root/.cache/uv \
+    -v ${XDG_CACHE_HOME}:${HOME}/.cache \
+    -v ${XDG_DATA_HOME}:${HOME}/.local/share \
+    -v ${XDG_BIN_HOME}:${HOME}/.local/bin \
     -v /etc/passwd:/etc/passwd:ro \
     -v /etc/group:/etc/group:ro \
     --user=$(id -u):$(id -g) \
