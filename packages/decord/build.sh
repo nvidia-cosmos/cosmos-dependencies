@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+cp lib/aarch64/libdecord.so /usr/local/cuda/lib64/
 pip wheel \
 	-v \
 	--no-deps \
