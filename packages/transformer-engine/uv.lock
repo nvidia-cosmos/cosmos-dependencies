@@ -125,7 +125,7 @@ provides-extras = ["build"]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "change-wheel-version", specifier = ">=0.6.0" },
+    { name = "change-wheel-version", git = "https://github.com/spectralflight/change_wheel_version.git?rev=ae6432577b1b0c54af76d52e6328e214287f2db9" },
     { name = "licensecheck", specifier = ">=2025.1.0" },
     { name = "parse", specifier = ">=1.20.2" },
     { name = "pip-licenses", specifier = ">=5.5.0" },

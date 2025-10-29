@@ -66,6 +66,6 @@ rm -rf "${venv_dir}"
 popd || exit 1
 
 # Fix wheel filenames.
-uv run bin/fix_wheel_filename.py -i "${OUTPUT_DIR}"/*.whl --cuda="${CUDA_NAME}" --torch="${TORCH_NAME}"
+uv run bin/fix_wheel.py -i "${OUTPUT_DIR}"/*.whl --local-version="cu${CUDA_NAME}.torch${TORCH_NAME}"
 
 ccache --show-stats

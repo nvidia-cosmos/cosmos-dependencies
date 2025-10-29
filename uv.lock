@@ -82,15 +82,11 @@ wheels = [
 [[package]]
 name = "change-wheel-version"
 version = "0.6.0"
-source = { registry = "https://pypi.org/simple" }
+source = { git = "https://github.com/spectralflight/change_wheel_version.git?rev=ae6432577b1b0c54af76d52e6328e214287f2db9#ae6432577b1b0c54af76d52e6328e214287f2db9" }
 dependencies = [
     { name = "installer" },
     { name = "packaging" },
     { name = "wheel" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/d7/2c/82f4d49f940d499e0d5789e1aa713ef95558f32969d7d192416c70b3cf65/change_wheel_version-0.6.0.tar.gz", hash = "sha256:63ceddbb3b630f3fca5901910af859137c9a5cae5f1d0abd4815a4cc4638aa99", size = 4192, upload-time = "2024-09-12T23:15:44.47Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/66/e6/53594793da46da734521e116e66e443dad18f35659f2c94dd805a38a0505/change_wheel_version-0.6.0-py3-none-any.whl", hash = "sha256:c79ec22867d96174b0eb141d6001e2e62f3d0df74a7b573ed6f540b88861af92", size = 4952, upload-time = "2024-09-12T23:15:42.996Z" },
 ]
 
 [[package]]
@@ -266,7 +262,7 @@ provides-extras = ["build"]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "change-wheel-version", specifier = ">=0.6.0" },
+    { name = "change-wheel-version", git = "https://github.com/spectralflight/change_wheel_version.git?rev=ae6432577b1b0c54af76d52e6328e214287f2db9" },
     { name = "licensecheck", specifier = ">=2025.1.0" },
     { name = "parse", specifier = ">=1.20.2" },
     { name = "pip-licenses", specifier = ">=5.5.0" },

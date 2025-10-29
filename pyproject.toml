@@ -51,6 +51,7 @@ packages = [
 
 [tool.uv.sources]
 apex = [{ index = "cosmos" }]
+change-wheel-version = [{ git = "https://github.com/spectralflight/change_wheel_version.git", rev = "ae6432577b1b0c54af76d52e6328e214287f2db9" }]
 flash-attn = [{ index = "cosmos"}]
 natten = [{ index = "cosmos" }]
 torch = [{ index = "cosmos" }]
