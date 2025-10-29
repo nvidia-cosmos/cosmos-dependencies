@@ -28,7 +28,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
         ccache \
         curl \
         git-lfs \
-        tree
+        tree \
+        wget
 
 ENV PATH="/usr/lib/ccache:/usr/local/bin:$PATH"
 

@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cp lib/aarch64/libdecord.so /usr/local/cuda/lib64/
+wget https://github.com/nvidia-cosmos/cosmos-dependencies/releases/download/v1.2.0/libdecord-linux_aarch64.so -O /usr/local/cuda/lib64/libdecord.so
 pip wheel \
 	-v \
 	--no-deps \

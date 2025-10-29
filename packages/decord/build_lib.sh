@@ -23,4 +23,3 @@ mkdir build
 cd build
 cmake .. -DUSE_CUDA=ON -DCMAKE_BUILD_TYPE=Release
 make -j "$(nproc)"
-cp libdecord.so /usr/local/cuda/lib64/
