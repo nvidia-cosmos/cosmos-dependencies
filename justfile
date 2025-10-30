@@ -29,15 +29,18 @@ _docker base_image build_args='' run_args='':
   set -euxo pipefail
   docker build --build-arg=BASE_IMAGE={{base_image}} {{build_args}} .
   image_tag=$(docker build --build-arg=BASE_IMAGE={{base_image}} {{build_args}} . -q)
+  # Mount cache directories to avoid re-downloading dependencies.
+  # Mount bin/data directories to avoid re-downloading tools.
   export XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.cache}
   export XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}
   export XDG_BIN_HOME=${XDG_BIN_HOME:-${XDG_DATA_HOME}/../bin}
   export UV_CACHE_DIR=${UV_CACHE_DIR:-${XDG_CACHE_HOME}/uv}
   export CCACHE_DIR=${CCACHE_DIR:-${XDG_CACHE_HOME}/ccache}
+  # Some packages use `torch.cuda.is_available()` which requires a GPU.
   docker run \
     -it \
     --rm \
-    --gpus all \
+    --gpus 1 \
     -v .:/app \
     -v ${XDG_CACHE_HOME}:${HOME}/.cache \
     -v ${XDG_DATA_HOME}:${HOME}/.local/share \
@@ -61,9 +64,9 @@ docker-cu129: (_docker 'nvidia/cuda:12.9.1-cudnn-devel-ubuntu20.04')
 # Run the CUDA 13.0 docker container.
 docker-cu130: (_docker 'nvidia/cuda:13.0.1-cudnn-devel-ubuntu22.04')
 
-upload:
-  gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) build/**/*.whl
-  rm -rfv build/**/*.whl
+upload pattern='build/**/*.whl':
+  gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) {{pattern}}
+  rm -rfv {{pattern}}
 
 version := `uv version --short`
 tag := 'v' + version
