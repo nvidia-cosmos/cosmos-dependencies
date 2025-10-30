@@ -27,6 +27,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     apt-get install -y --no-install-recommends \
         ccache \
         curl \
+        ffmpeg \
         git-lfs \
         tree \
         wget

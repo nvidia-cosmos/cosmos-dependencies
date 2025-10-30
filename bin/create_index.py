@@ -20,7 +20,6 @@ Reference: https://peps.python.org/pep-0503/
 
 import collections
 import json
-import shutil
 import subprocess
 import urllib.parse
 import warnings
@@ -83,6 +82,11 @@ def _write_html(html_path: Path, lines: set[_IndexLine]) -> None:
     index_html = _HTML_TEMPLATE.format(body="\n".join(map(str, sorted(lines))))
     html_path.parent.mkdir(exist_ok=True, parents=True)
     html_path.write_text(index_html)
+
+    # Strip timestamp comments
+    lines = html_path.read_text().splitlines()
+    lines = [line for line in lines if not line.strip().startswith("<!--")]
+    html_path.write_text("\n".join(lines) + "\n")
 
 
 @dataclass(kw_only=True, frozen=True)
