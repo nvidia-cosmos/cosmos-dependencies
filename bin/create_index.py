@@ -99,8 +99,6 @@ class Args:
 
 
 def main(args: Args):
-    shutil.rmtree(args.output_dir, ignore_errors=True)
-
     # Get the assets from the release
     cmd = [
         "gh",
