@@ -77,21 +77,21 @@ def _download_html(url: str, html_path: Path, *, base_url: str) -> None:
     ]
     subprocess.check_call(cmd)
 
+    # Strip comments and empty lines
+    lines: list[str] = []
+    for line in html_path.read_text().splitlines():
+        line_stripped = line.strip()
+        if not line_stripped or line_stripped.startswith("<!--"):
+            continue
+        lines.append(line)
+    html_path.write_text("\n".join(lines) + "\n")
+
 
 def _write_html(html_path: Path, lines: set[_IndexLine]) -> None:
     """Write index HTML file."""
     index_html = _HTML_TEMPLATE.format(body="\n".join(map(str, sorted(lines))))
     html_path.parent.mkdir(exist_ok=True, parents=True)
     html_path.write_text(index_html)
-
-    # Strip comments and empty lines
-    lines: list[str] = []
-    for line in html_path.read_text().splitlines():
-        line = line.strip()
-        if not line or line.startswith("<!--"):
-            continue
-        lines.append(line)
-    html_path.write_text("\n".join(lines) + "\n")
 
 
 @dataclass(kw_only=True, frozen=True)
