@@ -78,7 +78,6 @@ dev = [
     { name = "licensecheck", specifier = ">=2025.1.0" },
     { name = "parse", specifier = ">=1.20.2" },
     { name = "pip-licenses", specifier = ">=5.5.0" },
-    { name = "requests", specifier = ">=2.32.5" },
     { name = "tyro", specifier = ">=0.9.35" },
     { name = "wheel-filename", specifier = ">=1.4.2" },
 ]

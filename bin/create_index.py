@@ -29,11 +29,10 @@ from pathlib import Path
 from typing import Annotated
 
 import parse
-import requests
 import tyro
 from wheel_filename import parse_wheel_filename
 
-_TORCH_BASE_URL = "https://download.pytorch.org/whl"
+_TORCH_BASE_URL = "https://download.pytorch.org"
 _TORCH_PACKAGES = [
     "torch",
     "torchvision",
@@ -64,12 +63,19 @@ class _IndexLine:
         return f"<a href='{url}'>{self.name}</a><br>"
 
 
-def _download_html(url: str, html_path: Path) -> None:
+def _download_html(url: str, html_path: Path, *, base_url: str) -> None:
     """Download index HTML file."""
-    response = requests.get(url)
-    response.raise_for_status()
     html_path.parent.mkdir(exist_ok=True, parents=True)
-    html_path.write_text(response.text)
+    cmd = [
+        "wget",
+        "--quiet",
+        "--convert-links",
+        f"--base={base_url}",
+        url,
+        "-O",
+        html_path,
+    ]
+    subprocess.check_call(cmd)
 
 
 def _write_html(html_path: Path, lines: set[_IndexLine]) -> None:
@@ -167,14 +173,13 @@ def main(args: Args):
                 package_wheels,
             )
 
-        # TODO(joallen): Resolve relative links in HTML file.
-        if False:
-            for package_name in _TORCH_PACKAGES:
-                index_lines.add(_IndexLine(package_name))
-                _download_html(
-                    f"{_TORCH_BASE_URL}/{cuda_name}/{package_name}/",
-                    index_dir / package_name / "index.html",
-                )
+        for package_name in _TORCH_PACKAGES:
+            index_lines.add(_IndexLine(package_name))
+            _download_html(
+                f"{_TORCH_BASE_URL}/whl/{cuda_name}/{package_name}/",
+                index_dir / package_name / "index.html",
+                base_url=_TORCH_BASE_URL,
+            )
         _write_html(
             index_dir / "index.html",
             index_lines,
@@ -183,11 +188,11 @@ def main(args: Args):
     # Create global index
     index_dir = args.output_dir / "simple"
     index_lines = set(_IndexLine(package_name) for package_name in all_lines)
-    # TODO(joallen): Resolve relative links in HTML file.
-    if False:
-        for package_name in _TORCH_PACKAGES:
-            index_lines.add(_IndexLine(package_name))
-            _download_html(f"{_TORCH_BASE_URL}/{package_name}/", index_dir / package_name / "index.html")
+    for package_name in _TORCH_PACKAGES:
+        index_lines.add(_IndexLine(package_name))
+        _download_html(
+            f"{_TORCH_BASE_URL}/whl/{package_name}/", index_dir / package_name / "index.html", base_url=_TORCH_BASE_URL
+        )
     _write_html(index_dir / "index.html", index_lines)
     for package_name, package_lines in all_lines.items():
         _write_html(

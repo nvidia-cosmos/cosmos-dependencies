@@ -36,7 +36,6 @@ dev = [
     "licensecheck>=2025.1.0",
     "parse>=1.20.2",
     "pip-licenses>=5.5.0",
-    "requests>=2.32.5",
     "tyro>=0.9.35",
     "wheel-filename>=1.4.2",
 ]
