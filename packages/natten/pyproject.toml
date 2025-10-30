@@ -19,7 +19,7 @@ version = "0.1.0"
 requires-python = ">=3.10"
 dependencies = [
     "cosmos-dependencies[build]",
-    "cmake==3.*",
+    "cmake>=3.28.1,<3.31",
     # https://github.com/SHI-Labs/NATTEN/blob/main/pyproject.toml#L2
     "setuptools >= 64",
 ]
