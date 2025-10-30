@@ -35,6 +35,11 @@ export CCACHE_NOHASHDIR="true"
 
 # Set CUDA environment variables
 export CUDA_HOME="/usr/local/cuda-${CUDA_VERSION}"
+# Check if CUDA_HOME is valid.
+if [ ! -d "${CUDA_HOME}/bin" ]; then
+	echo "CUDA ${CUDA_VERSION} is not installed."
+	exit 1
+fi
 export PATH="${CUDA_HOME}/bin:${PATH:-}"
 export LD_LIBRARY_PATH="${CUDA_HOME}/lib64:${LD_LIBRARY_PATH:-}"
 nvcc --version

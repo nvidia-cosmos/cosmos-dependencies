@@ -82,12 +82,12 @@ dev = [
     { name = "wheel-filename", specifier = ">=1.4.2" },
 ]
 packages = [
-    { name = "apex", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.1.0/simple" },
-    { name = "flash-attn", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.1.0/simple" },
-    { name = "natten", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.1.0/simple" },
-    { name = "torch", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.1.0/simple" },
-    { name = "torchvision", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.1.0/simple" },
-    { name = "transformer-engine", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.1.0/simple" },
+    { name = "apex", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/simple" },
+    { name = "flash-attn", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/simple" },
+    { name = "natten", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/simple" },
+    { name = "torch", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/simple" },
+    { name = "torchvision", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/simple" },
+    { name = "transformer-engine", index = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/simple" },
 ]
 
 [[package]]
