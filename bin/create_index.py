@@ -167,12 +167,14 @@ def main(args: Args):
                 package_wheels,
             )
 
-        for package_name in _TORCH_PACKAGES:
-            index_lines.add(_IndexLine(package_name))
-            _download_html(
-                f"{_TORCH_BASE_URL}/{cuda_name}/{package_name}/",
-                index_dir / package_name / "index.html",
-            )
+        # TODO(joallen): Resolve relative links in HTML file.
+        if False:
+            for package_name in _TORCH_PACKAGES:
+                index_lines.add(_IndexLine(package_name))
+                _download_html(
+                    f"{_TORCH_BASE_URL}/{cuda_name}/{package_name}/",
+                    index_dir / package_name / "index.html",
+                )
         _write_html(
             index_dir / "index.html",
             index_lines,
@@ -181,9 +183,11 @@ def main(args: Args):
     # Create global index
     index_dir = args.output_dir / "simple"
     index_lines = set(_IndexLine(package_name) for package_name in all_lines)
-    for package_name in _TORCH_PACKAGES:
-        index_lines.add(_IndexLine(package_name))
-        _download_html(f"{_TORCH_BASE_URL}/{package_name}/", index_dir / package_name / "index.html")
+    # TODO(joallen): Resolve relative links in HTML file.
+    if False:
+        for package_name in _TORCH_PACKAGES:
+            index_lines.add(_IndexLine(package_name))
+            _download_html(f"{_TORCH_BASE_URL}/{package_name}/", index_dir / package_name / "index.html")
     _write_html(index_dir / "index.html", index_lines)
     for package_name, package_lines in all_lines.items():
         _write_html(
