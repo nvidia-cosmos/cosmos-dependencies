@@ -64,7 +64,7 @@ just build natten 0.21.0 3.12 2.7 12.8
 1. Upload wheels
 
 ```shell
-just upload
+just upload <wheel_path>
 ```
 
 1. Create and locally host the package index

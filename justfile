@@ -30,7 +30,7 @@ _docker base_image build_args='' run_args='':
   docker build --build-arg=BASE_IMAGE={{base_image}} {{build_args}} .
   image_tag=$(docker build --build-arg=BASE_IMAGE={{base_image}} {{build_args}} . -q)
   # Mount cache directories to avoid re-downloading dependencies.
-  # Mount bin/data directories to avoid re-downloading tools.
+  # Mount bin/data directories to avoid re-downloading python binaries and tools.
   export XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.cache}
   export XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}
   export XDG_BIN_HOME=${XDG_BIN_HOME:-${XDG_DATA_HOME}/../bin}
@@ -64,7 +64,7 @@ docker-cu129: (_docker 'nvidia/cuda:12.9.1-cudnn-devel-ubuntu20.04')
 # Run the CUDA 13.0 docker container.
 docker-cu130: (_docker 'nvidia/cuda:13.0.1-cudnn-devel-ubuntu22.04')
 
-upload pattern='build/**/*.whl':
+upload pattern:
   gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) {{pattern}}
   rm -rfv {{pattern}}
 

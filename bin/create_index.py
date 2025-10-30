@@ -20,6 +20,7 @@ Reference: https://peps.python.org/pep-0503/
 
 import collections
 import json
+import shutil
 import subprocess
 import urllib.parse
 import warnings
@@ -83,9 +84,13 @@ def _write_html(html_path: Path, lines: set[_IndexLine]) -> None:
     html_path.parent.mkdir(exist_ok=True, parents=True)
     html_path.write_text(index_html)
 
-    # Strip timestamp comments
-    lines = html_path.read_text().splitlines()
-    lines = [line for line in lines if not line.strip().startswith("<!--")]
+    # Strip comments and empty lines
+    lines: list[str] = []
+    for line in html_path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("<!--"):
+            continue
+        lines.append(line)
     html_path.write_text("\n".join(lines) + "\n")
 
 
@@ -103,6 +108,8 @@ class Args:
 
 
 def main(args: Args):
+    shutil.rmtree(args.output_dir, ignore_errors=True)
+
     # Get the assets from the release
     cmd = [
         "gh",

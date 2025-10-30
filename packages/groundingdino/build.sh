@@ -15,8 +15,6 @@
 
 # https://github.com/IDEA-Research/GroundingDINO?tab=readme-ov-file#hammer_and_wrench-install
 
-# GroundingDINO doesn't work with newer CUDA versions.
-export CUDA_VISIBLE_DEVICES=
 pip wheel \
 	-v \
 	--no-deps \
