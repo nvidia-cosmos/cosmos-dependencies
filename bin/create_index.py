@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Annotated
 
 import parse
+import requests
 import tyro
 from wheel_filename import parse_wheel_filename
 
@@ -50,18 +51,29 @@ _HTML_TEMPLATE = """<!DOCTYPE html>
 
 @dataclass(frozen=True, order=True)
 class _IndexLine:
+    """Index line."""
+
     name: str
     url: str | None = None
 
     def __str__(self) -> str:
-        if self.url is None:
-            url = f"{self.name}/"
-        else:
+        if self.url is not None:
             url = self.url
+        else:
+            url = f"{self.name}/"
         return f"<a href='{url}'>{self.name}</a><br>"
 
 
+def _download_html(url: str, html_path: Path) -> None:
+    """Download index HTML file."""
+    response = requests.get(url)
+    response.raise_for_status()
+    html_path.parent.mkdir(exist_ok=True, parents=True)
+    html_path.write_text(response.text)
+
+
 def _write_html(html_path: Path, lines: set[_IndexLine]) -> None:
+    """Write index HTML file."""
     index_html = _HTML_TEMPLATE.format(body="\n".join(map(str, sorted(lines))))
     html_path.parent.mkdir(exist_ok=True, parents=True)
     html_path.write_text(index_html)
@@ -142,6 +154,7 @@ def main(args: Args):
 
     # Create cuda/torch specific indices
     for index_name, index_wheels in all_wheels.items():
+        cuda_name, _torch_name = index_name.split("_")
         index_lines = set()
 
         # Create package indices
@@ -154,8 +167,11 @@ def main(args: Args):
             )
 
         for package_name in _TORCH_PACKAGES:
-            cuda_name, _ = index_name.split("_")
-            index_lines.add(_IndexLine(package_name, f"{_TORCH_BASE_URL}/{cuda_name}/{package_name}/"))
+            index_lines.add(_IndexLine(package_name))
+            _download_html(
+                f"{_TORCH_BASE_URL}/{cuda_name}/{package_name}/",
+                args.output_dir / index_name / "simple" / package_name / "index.html",
+            )
         _write_html(
             args.output_dir / index_name / "simple/index.html",
             index_lines,
@@ -164,7 +180,8 @@ def main(args: Args):
     # Create global index
     index_lines = set(_IndexLine(package_name) for package_name in all_lines)
     for package_name in _TORCH_PACKAGES:
-        index_lines.add(_IndexLine(package_name, f"{_TORCH_BASE_URL}/{package_name}/"))
+        index_lines.add(_IndexLine(package_name))
+        _download_html(f"{_TORCH_BASE_URL}/{package_name}/", args.output_dir / "simple" / package_name / "index.html")
     _write_html(args.output_dir / "simple/index.html", index_lines)
     for package_name, package_lines in all_lines.items():
         _write_html(

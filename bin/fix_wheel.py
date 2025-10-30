@@ -15,7 +15,7 @@
 
 """Fix wheel.
 
-* Ensure wheel metadata matches filename. 
+* Ensure wheel metadata matches filename.
 * Optionally, set local version.
 """
 
@@ -32,7 +32,7 @@ from wheel_filename import parse_wheel_filename
 class Args:
     input_paths: Annotated[list[Path], tyro.conf.arg(aliases=("-i",))]
     """Input wheel path."""
-    
+
     local_version: str | None = None
     """Local version (e.g. 'cu128.torch27')."""
 
