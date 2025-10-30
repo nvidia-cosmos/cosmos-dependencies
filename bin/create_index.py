@@ -133,7 +133,7 @@ def main(args: Args):
 
         all_wheels[index_name][package_name].add(_IndexLine(filename, url))
 
-    # Parse urls.txt files
+    # Parse wheel URL files
     urls_files = args.input_dir.glob("*.txt")
     assert urls_files
     for urls_file in urls_files:
@@ -154,6 +154,7 @@ def main(args: Args):
 
     # Create cuda/torch specific indices
     for index_name, index_wheels in all_wheels.items():
+        index_dir = args.output_dir / index_name / "simple"
         cuda_name, _torch_name = index_name.split("_")
         index_lines = set()
 
@@ -162,7 +163,7 @@ def main(args: Args):
             index_lines.add(_IndexLine(package_name))
             all_lines[package_name].update(package_wheels)
             _write_html(
-                args.output_dir / index_name / "simple" / package_name / "index.html",
+                index_dir / package_name / "index.html",
                 package_wheels,
             )
 
@@ -170,22 +171,23 @@ def main(args: Args):
             index_lines.add(_IndexLine(package_name))
             _download_html(
                 f"{_TORCH_BASE_URL}/{cuda_name}/{package_name}/",
-                args.output_dir / index_name / "simple" / package_name / "index.html",
+                index_dir / package_name / "index.html",
             )
         _write_html(
-            args.output_dir / index_name / "simple/index.html",
+            index_dir / "index.html",
             index_lines,
         )
 
     # Create global index
+    index_dir = args.output_dir / "simple"
     index_lines = set(_IndexLine(package_name) for package_name in all_lines)
     for package_name in _TORCH_PACKAGES:
         index_lines.add(_IndexLine(package_name))
-        _download_html(f"{_TORCH_BASE_URL}/{package_name}/", args.output_dir / "simple" / package_name / "index.html")
-    _write_html(args.output_dir / "simple/index.html", index_lines)
+        _download_html(f"{_TORCH_BASE_URL}/{package_name}/", index_dir / package_name / "index.html")
+    _write_html(index_dir / "index.html", index_lines)
     for package_name, package_lines in all_lines.items():
         _write_html(
-            args.output_dir / "simple" / package_name / "index.html",
+            index_dir / package_name / "index.html",
             package_lines,
         )
 
