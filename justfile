@@ -37,6 +37,7 @@ _docker base_image build_args='' run_args='':
   docker run \
     -it \
     --rm \
+    --gpus all \
     -v .:/app \
     -v ${XDG_CACHE_HOME}:${HOME}/.cache \
     -v ${XDG_DATA_HOME}:${HOME}/.local/share \

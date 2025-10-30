@@ -60,7 +60,7 @@ transformer-engine = [{ index = "cosmos" }]
 
 [[tool.uv.index]]
 name = "cosmos"
-url = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.1.0/simple"
+url = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/simple"
 explicit = true
 
 [build-system]
