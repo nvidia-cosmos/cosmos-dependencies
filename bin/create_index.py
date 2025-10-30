@@ -80,8 +80,8 @@ def _download_html(url: str, html_path: Path, *, base_url: str) -> None:
     # Strip comments and empty lines
     lines: list[str] = []
     for line in html_path.read_text().splitlines():
-        line_stripped = line.strip()
-        if not line_stripped or line_stripped.startswith("<!--"):
+        line = line.rstrip()
+        if not line or line.lstrip().startswith("<!--"):
             continue
         lines.append(line)
     html_path.write_text("\n".join(lines) + "\n")
