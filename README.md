@@ -37,17 +37,25 @@ Run the docker container:
 
 ```shell
 just docker-<cuda_version>
+```
 
-# Example
-just docker-cu128
+Optionally, test the environment:
+
+```shell
+just build-dummy <cuda_version>
 ```
 
 Build a single package:
 
 ```shell
 just build <package_name> <package_version> <python_version> <torch_version> <cuda_version>
+```
 
-# Example
+Example:
+
+```shell
+just docker-cu128
+just build-dummy 12.8
 just build natten 0.21.0 3.12 2.7 12.8
 ```
 

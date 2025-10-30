@@ -13,16 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[project]
-name = "natten"
-version = "0.1.0"
-requires-python = ">=3.10"
-dependencies = [
-    "cosmos-dependencies[build]",
-    "cmake==3.*",
-    # https://github.com/SHI-Labs/NATTEN/blob/main/pyproject.toml#L2
-    "setuptools >= 64",
-]
+# https://github.com/IDEA-Research/GroundingDINO?tab=readme-ov-file#hammer_and_wrench-install
 
-[tool.uv.sources]
-cosmos-dependencies = { path = "../.." }
+pip wheel \
+	-v \
+	--no-deps \
+	--no-build-isolation \
+	--check-build-dependencies \
+	--wheel-dir="${OUTPUT_DIR}" \
+	"git+https://github.com/IDEA-Research/GroundingDINO.git@v${PACKAGE_VERSION}" \
+	"$@"

@@ -80,21 +80,15 @@ packages = [
 ]
 
 [[package]]
-name = "natten"
+name = "groundingdino"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "cmake" },
     { name = "cosmos-dependencies", extra = ["build"] },
-    { name = "setuptools" },
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "cmake", specifier = "==3.*" },
-    { name = "cosmos-dependencies", extras = ["build"], directory = "../../" },
-    { name = "setuptools", specifier = ">=64" },
-]
+requires-dist = [{ name = "cosmos-dependencies", extras = ["build"], directory = "../../" }]
 
 [[package]]
 name = "ninja"
