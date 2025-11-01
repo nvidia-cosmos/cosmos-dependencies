@@ -747,11 +747,6 @@ UNKNOWN
    limitations under the License.
 
 
-decord
-Apache Software License
-https://github.com/dmlc/decord
-UNKNOWN
-
 docstring_parser
 MIT License
 https://github.com/rr-/docstring_parser
