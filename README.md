@@ -22,14 +22,14 @@ source $XDG_BIN_HOME/env
 [just](https://github.com/casey/just?tab=readme-ov-file#installation)
 
 ```shell
-cd "$XDG_BIN_HOME" && curl https://zyedidia.github.io/eget.sh | sh
-eget casey/just --to $HOME/.local/bin
+pushd "$XDG_BIN_HOME" && curl https://zyedidia.github.io/eget.sh | sh && popd
+eget casey/just --to="$XDG_BIN_HOME"
 ```
 
 If uploading wheels, [gh](https://github.com/cli/cli?tab=readme-ov-file#installation):
 
 ```shell
-eget cli/cli --to=$XDG_BIN_HOME
+eget cli/cli --asset=.tar.gz --to="$XDG_BIN_HOME"
 gh auth login
 ```
 

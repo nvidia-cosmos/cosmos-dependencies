@@ -46,7 +46,10 @@ def main(args: Args):
         parts = pwf.version.split("+")
         assert len(parts) in [1, 2]
         version = parts[0]
-        local_version = parts[1]
+        if len(parts) == 2:
+            local_version = parts[1]
+        else:
+            local_version = None
         if args.version is not None:
             version = args.version
         if args.local_version is not None:

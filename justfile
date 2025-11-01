@@ -27,14 +27,15 @@ build-dummy cuda_version: (build 'cosmos-dummy' '0.1.0' '3.10' '2.7' cuda_versio
 _docker base_image build_args='' run_args='':
   #!/usr/bin/env bash
   set -euxo pipefail
-  build_args="--build-arg=BASE_IMAGE={{base_image}} --build-arg=USER_ID=$(id -u) --build-arg=GROUP_ID=$(id -g) {{build_args}}"
+  build_args="--build-arg=BASE_IMAGE={{base_image}} {{build_args}}"
   docker build $build_args .
   image_tag=$(docker build $build_args -q .)
   # Mount cache directories to avoid re-downloading dependencies.
   # Mount bin/data directories to avoid re-downloading python binaries and tools.
   export XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.cache}
+  export XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}
+  export XDG_BIN_HOME=${XDG_BIN_HOME:-${XDG_DATA_HOME}/../bin}
   export UV_CACHE_DIR=${UV_CACHE_DIR:-${XDG_CACHE_HOME}/uv}
-  export UV_PYTHON_CACHE_DIR=${UV_PYTHON_CACHE_DIR:-${UV_CACHE_DIR}}
   export CCACHE_DIR=${CCACHE_DIR:-${HOME}/.ccache}
   # Some packages use `torch.cuda.is_available()` which requires a GPU.
   docker run \
@@ -42,10 +43,13 @@ _docker base_image build_args='' run_args='':
     --rm \
     --gpus 1 \
     -v .:/app \
-    -v ${XDG_CACHE_HOME}:/home/user/.cache \
-    -v ${UV_CACHE_DIR}:/home/user/.cache/uv \
-    -v ${UV_PYTHON_CACHE_DIR}:/home/user/.cache/uv \
-    -v ${CCACHE_DIR}:/home/user/.ccache \
+    -v ${XDG_CACHE_HOME}:${HOME}/.cache \
+    -v ${XDG_DATA_HOME}:${HOME}/.local/share \
+    -v ${XDG_BIN_HOME}:${HOME}/.local/bin \
+    -v ${UV_CACHE_DIR}:${HOME}/.cache/uv \
+    -v ${CCACHE_DIR}:${HOME}/.ccache \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
     --user=$(id -u):$(id -g) \
     {{run_args}} $image_tag
 
