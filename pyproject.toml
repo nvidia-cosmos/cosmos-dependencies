@@ -42,6 +42,7 @@ dev = [
 # Wheel packages for license check.
 packages = [
     "apex",
+    "decord",
     "flash-attn",
     "natten",
     "torch",
@@ -52,6 +53,7 @@ packages = [
 [tool.uv.sources]
 apex = [{ index = "cosmos" }]
 change-wheel-version = [{ git = "https://github.com/spectralflight/change_wheel_version.git", rev = "ae6432577b1b0c54af76d52e6328e214287f2db9" }]
+decord = [{ index = "cosmos" }]
 flash-attn = [{ index = "cosmos"}]
 natten = [{ index = "cosmos" }]
 torch = [{ index = "cosmos" }]
@@ -60,7 +62,7 @@ transformer-engine = [{ index = "cosmos" }]
 
 [[tool.uv.index]]
 name = "cosmos"
-url = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/simple"
+url = "https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/cu128_torch27/simple"
 explicit = true
 
 [build-system]

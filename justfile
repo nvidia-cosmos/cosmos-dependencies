@@ -80,9 +80,12 @@ _index-create *args:
 # Create the package index
 index-create *args: license (_index-create args)
 
-# Locally serve the package index
-index-serve *args: index-create
+# Serve the package index
+_index-serve *args:
   uv run -m http.server -d {{index_dir}} {{args}}
+
+# Locally serve the package index
+index-serve *args: index-create _index-serve
 
 # Test the package index
 _index-test: (index-create '-o' 'tmp/' + index_dir)
