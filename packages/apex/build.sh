@@ -14,9 +14,10 @@
 # limitations under the License.
 
 # Apex is not versioned, so we are pinning a specific commit.
-if [ "$PACKAGE_VERSION" != "0.1.0" ]; then
-	echo "PACKAGE_VERSION must be 0.1.0"
-	exit 1
+if [ "$PACKAGE_VERSION" == "0.1.0" ]; then
+	tag="26bba57d62553d268319b4a20cc3d8aa990249ec"
+else
+	tag="${PACKAGE_VERSION}"
 fi
 
 # https://github.com/NVIDIA/apex?tab=readme-ov-file#from-source
@@ -29,5 +30,5 @@ pip wheel \
 	--no-build-isolation \
 	--check-build-dependencies \
 	--wheel-dir="${OUTPUT_DIR}" \
-	"git+https://github.com/NVIDIA/apex.git@26bba57d62553d268319b4a20cc3d8aa990249ec" \
+	"git+https://github.com/NVIDIA/apex.git@${tag}" \
 	"$@"
