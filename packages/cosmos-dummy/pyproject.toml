@@ -23,7 +23,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-cosmos-dependencies = { path = "../.." }
+cosmos-dependencies = { path = "../..", editable = true }
 
 [build-system]
 requires = ["uv_build>=0.8.12,<0.9.0"]

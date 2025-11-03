@@ -16,21 +16,7 @@
 # https://natten.org/install/#build-natten-libnatten
 export NATTEN_N_WORKERS=${NATTEN_N_WORKERS:-$(($(nproc) / 2))}
 export NATTEN_VERBOSE=1
-
-# Support Ampere and newer
-# https://github.com/SHI-Labs/NATTEN/blob/14318035fa8926557e7ac72c13f52aebd6c2db45/scripts/packaging/pkg_helpers.bash#L25
-# Only support Ampere and newer
-case "${CUDA_VERSION}" in
-12.9 | 13.0)
-	export NATTEN_CUDA_ARCH="8.0;8.6;8.9;9.0;10.0;10.3;12.0"
-	;;
-12.8)
-	export NATTEN_CUDA_ARCH="8.0;8.6;8.9;9.0;10.0;12.0"
-	;;
-*)
-	export NATTEN_CUDA_ARCH="8.0;8.6;8.9;9.0"
-	;;
-esac
+export NATTEN_CUDA_ARCHS="${TORCH_CUDA_ARCH_LIST}"
 
 pip wheel \
 	-v \

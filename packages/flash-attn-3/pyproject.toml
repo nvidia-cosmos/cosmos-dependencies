@@ -23,4 +23,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-cosmos-dependencies = { path = "../.." }
+cosmos-dependencies = { path = "../..", editable = true }

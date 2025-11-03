@@ -90,8 +90,11 @@ index-serve *args: index-create _index-serve
 # Test the package index
 _index-test: (index-create '-o' 'tmp/' + index_dir)
 
+_pytest *args:
+  uv run pytest {{args}}
+
 # Run tests
-test: lint _index-test
+test: lint _pytest _index-test
 
 # https://spdx.org/licenses/
 allow_licenses := "MIT BSD-2-CLAUSE BSD-3-CLAUSE APACHE-2.0 ISC"

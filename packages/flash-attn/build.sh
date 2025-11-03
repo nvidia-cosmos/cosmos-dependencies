@@ -18,6 +18,7 @@ export MAX_JOBS=${MAX_JOBS:-$(($(nproc) / 4))}
 
 # https://github.com/Dao-AILab/flash-attention/blob/main/setup.py
 export FLASH_ATTENTION_FORCE_BUILD=TRUE
+export FLASH_ATTN_CUDA_ARCHS="${TORCH_CUDA_ARCH_LIST}"
 
 pip wheel \
 	-v \

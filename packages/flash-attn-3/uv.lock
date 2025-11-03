@@ -35,7 +35,7 @@ wheels = [
 [[package]]
 name = "cosmos-dependencies"
 version = "1.2.0"
-source = { directory = "../../" }
+source = { editable = "../../" }
 
 [package.optional-dependencies]
 build = [
@@ -67,6 +67,7 @@ dev = [
     { name = "licensecheck", specifier = ">=2025.1.0" },
     { name = "parse", specifier = ">=1.20.2" },
     { name = "pip-licenses", specifier = ">=5.5.0" },
+    { name = "pytest", specifier = ">=8.4.2" },
     { name = "tyro", specifier = ">=0.9.35" },
     { name = "wheel-filename", specifier = ">=1.4.2" },
 ]
@@ -91,7 +92,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "cosmos-dependencies", extras = ["build"], directory = "../../" },
+    { name = "cosmos-dependencies", extras = ["build"], editable = "../../" },
     { name = "psutil" },
 ]
 

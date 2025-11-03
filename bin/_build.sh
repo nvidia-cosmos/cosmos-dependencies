@@ -51,8 +51,8 @@ uv pip install "torch==${TORCH_VERSION}.*" --index-url "https://download.pytorch
 
 # Set build environment variables
 eval "$(python -c "
-import torch
-print(f'export _GLIBCXX_USE_CXX11_ABI={1 if torch.compiled_with_cxx11_abi() else 0}')
+from cosmos_dependencies.build import build_env
+build_env()
 ")"
 
 # Configure ccache
