@@ -23,6 +23,8 @@ fi
 # https://github.com/NVIDIA/apex?tab=readme-ov-file#from-source
 export APEX_CPP_EXT=1
 export APEX_CUDA_EXT=1
+export APEX_PARALLEL_BUILD=8
+export NVCC_APPEND_FLAGS="--threads 4"
 
 pip wheel \
 	-v \
