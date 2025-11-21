@@ -36,7 +36,7 @@ ENV PATH="/usr/lib/ccache:/usr/local/bin:$PATH"
 
 # Install uv: https://docs.astral.sh/uv/getting-started/installation/
 # https://github.com/astral-sh/uv-docker-example/blob/main/Dockerfile
-COPY --from=ghcr.io/astral-sh/uv:0.8.12 /uv /uvx /usr/local/bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.10 /uv /uvx /usr/local/bin/
 
 # Install just: https://just.systems/man/en/pre-built-binaries.html
 RUN curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin --tag 1.42.4
