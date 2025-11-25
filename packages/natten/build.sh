@@ -16,7 +16,7 @@
 # https://natten.org/install/#build-natten-libnatten
 export NATTEN_N_WORKERS=${NATTEN_N_WORKERS:-$(($(nproc) / 2))}
 export NATTEN_VERBOSE=1
-export NATTEN_CUDA_ARCHS="${TORCH_CUDA_ARCH_LIST}"
+export NATTEN_CUDA_ARCH="${TORCH_CUDA_ARCH_LIST}"
 
 pip wheel \
 	-v \

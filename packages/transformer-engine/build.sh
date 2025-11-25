@@ -15,7 +15,7 @@
 
 # https://github.com/NVIDIA/TransformerEngine?tab=readme-ov-file#pip-installation
 export NVTE_FRAMEWORK=pytorch
-export NVTE_CUDA_ARCHS="${TORCH_CUDA_ARCH_LIST}"
+export NVTE_CUDA_ARCHS="${TORCH_CUDA_ARCH_LIST//./}"
 
 pip wheel \
 	-v \
