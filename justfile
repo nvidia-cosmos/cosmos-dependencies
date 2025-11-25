@@ -53,8 +53,15 @@ docker-cu129 *args: (_docker 'nvidia/cuda:12.9.1-cudnn-devel-ubuntu20.04' args)
 # Run the CUDA 13.0 docker container.
 docker-cu130 *args: (_docker 'nvidia/cuda:13.0.1-cudnn-devel-ubuntu22.04' args)
 
+# Run the PyTorch 25.04 docker container.
+docker-torch2504 *args: (_docker 'nvcr.io/nvidia/pytorch:25.04-py3' args)
+
 # Run the PyTorch 25.10 docker container.
 docker-torch2510 *args: (_docker 'nvcr.io/nvidia/pytorch:25.10-py3' args)
+
+# Fix file permissions.
+fix-permissions:
+  sudo chown -R $(id -u):$(id -g) .
 
 upload pattern *args:
   gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) {{pattern}} {{args}}

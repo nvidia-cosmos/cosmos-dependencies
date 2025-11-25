@@ -64,6 +64,12 @@ just build-dummy 12.8
 just build natten 0.21.0 3.12 2.7 12.8
 ```
 
+On the host, fix file permissions:
+
+```shell
+just fix-permissions
+```
+
 ## Upload Wheels
 
 1. Upload wheels
