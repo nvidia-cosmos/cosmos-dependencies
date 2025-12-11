@@ -43,6 +43,40 @@ https://github.com/user-attachments/assets/ba92fa5d-2972-463e-af2e-a637a810a463
 https://github.com/user-attachments/assets/0c5151d4-968b-42ad-a517-cdc0dde37ee5
 
 
+## Image Examples
+
+### image prompt video
+https://github.com/user-attachments/assets/3d7e8e93-b190-470c-8eb7-8b1ccf38904b
+
+
+
+### image prompt image 
+https://github.com/user-attachments/assets/1c00a2c2-99a6-4fd7-a0bf-79333ac227c6
+
+### output video
+https://github.com/user-attachments/assets/a925ec8e-6005-4e14-9c05-58597a9be61c
+
+
+
+
+<table>
+  <tr>
+    <th>Input Video</th>
+    <th>Reference Image</th>
+    <th>Output Video</th>
+  </tr>
+  <tr>
+    <td valign="middle" width="33%">
+      <video src="https://github.com/user-attachments/assets/3d7e8e93-b190-470c-8eb7-8b1ccf38904b" width="100%" controls></video>
+    </td>
+    <td valign="middle" width="33%">
+      <img src="https://github.com/user-attachments/assets/1c00a2c2-99a6-4fd7-a0bf-79333ac227c6" width="100%" alt="Reference image">
+    </td>
+    <td valign="middle" width="33%">
+      <video src="https://github.com/user-attachments/assets/a925ec8e-6005-4e14-9c05-58597a9be61c" width="100%" controls></video>
+    </td>
+  </tr>
+</table>
 
 
 
