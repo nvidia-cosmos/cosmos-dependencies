@@ -37,6 +37,7 @@ _docker base_image build_args='' run_args='':
     --rm \
     --gpus 1 \
     -v .:/app \
+    -v /app/.venv \
     -v /root/.cache:/root/.cache \
     -v /root/.ccache:/root/.ccache \
     {{run_args}} $image_tag
@@ -51,7 +52,7 @@ docker-cu128 *args: (_docker 'nvidia/cuda:12.8.1-cudnn-devel-ubuntu20.04' args)
 docker-cu129 *args: (_docker 'nvidia/cuda:12.9.1-cudnn-devel-ubuntu20.04' args)
 
 # Run the CUDA 13.0 docker container.
-docker-cu130 *args: (_docker 'nvidia/cuda:13.0.1-cudnn-devel-ubuntu22.04' args)
+docker-cu130 *args: (_docker 'nvidia/cuda:13.0.1-cudnn-devel-ubuntu24.04' args)
 
 # Run the PyTorch 25.04 docker container.
 docker-torch2504 *args: (_docker 'nvcr.io/nvidia/pytorch:25.04-py3' args)
