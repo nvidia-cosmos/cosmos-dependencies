@@ -14,10 +14,6 @@
 # limitations under the License.
 
 # https://github.com/NVIDIA/TransformerEngine?tab=readme-ov-file#pip-installation
-if [[ "$(uname -m)" == "aarch64" && -z "${TORCH_CUDA_ARCH_LIST:-}" ]]; then
-	export TORCH_CUDA_ARCH_LIST="8.7;9.0"
-fi
-
 export NVTE_FRAMEWORK=pytorch
 export NVTE_CUDA_ARCHS="${TORCH_CUDA_ARCH_LIST//./}"
 
