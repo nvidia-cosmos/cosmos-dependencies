@@ -17,6 +17,20 @@
 export NVTE_FRAMEWORK=pytorch
 export NVTE_CUDA_ARCHS="${TORCH_CUDA_ARCH_LIST//./}"
 
+# Create missing PyTorch header file for CUDA extension builds
+TORCH_INCLUDE=$(python -c "import torch; print(torch.__path__[0])")/include
+if [[ ! -f "${TORCH_INCLUDE}/c10/cuda/impl/cuda_cmake_macros.h" ]]; then
+	mkdir -p "${TORCH_INCLUDE}/c10/cuda/impl"
+	cat >"${TORCH_INCLUDE}/c10/cuda/impl/cuda_cmake_macros.h" <<'HEADER'
+#pragma once
+
+// Automatically generated header file for the C10 CUDA library.  Do not
+// include this file directly.  Instead, include c10/cuda/CUDAMacros.h
+
+#define C10_CUDA_BUILD_SHARED_LIBS
+HEADER
+fi
+
 pip wheel \
 	-v \
 	--no-deps \
