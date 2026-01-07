@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG BASE_IMAGE="nvidia/cuda:12.8.1-cudnn-devel-ubuntu20.04"
-
+ARG CUDA_VERSION="12.8.1"
+ARG BASE_IMAGE="nvidia/cuda:${CUDA_VERSION}-cudnn-devel-ubuntu22.04"
 FROM ${BASE_IMAGE}
 
 # Set the DEBIAN_FRONTEND environment variable to avoid interactive prompts during apt operations.
@@ -25,12 +25,20 @@ RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
     apt-get update && \
     apt-get install -y --no-install-recommends \
+        ca-certificates \
         ccache \
         curl \
-        ffmpeg \
+        software-properties-common \
         git-lfs \
         tree \
         wget
+
+# Install ffmpeg 6
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/var/lib/apt \
+    add-apt-repository ppa:ubuntuhandbook1/ffmpeg6 && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends ffmpeg
 
 ENV PATH="/usr/lib/ccache:/usr/local/bin:$PATH"
 
