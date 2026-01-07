@@ -26,8 +26,16 @@ def _parse_torch_cuda_arch(name: str) -> tuple[int, int]:
 
 def _get_torch_cuda_arch_list() -> list[tuple[int, int]]:
     """Get the list of CUDA architectures supported by PyTorch."""
-    arch_list = torch.cuda.get_arch_list()
-    return [_parse_torch_cuda_arch(x) for x in arch_list if x.startswith("sm_")]
+    arch_list = []
+    for arch in torch.cuda.get_arch_list():
+        if not arch.startswith("sm_"):
+            continue
+        major, minor = _parse_torch_cuda_arch(arch)
+        if major < 8:
+            # Only support Ampere and later.
+            continue
+        arch_list.append((major, minor))
+    return arch_list
 
 
 def build_env() -> None:
