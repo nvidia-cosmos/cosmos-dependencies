@@ -26,13 +26,19 @@ apt-get install -y --no-install-recommends \
 	libavformat-dev \
 	libavutil-dev
 
-cp Video_Codec_SDK_13.0.19/Lib/linux/stubs/aarch64/* /usr/local/cuda/lib64/
+cp "Video_Codec_SDK_13.0.19/Lib/linux/stubs/$(uname -m)/"* /usr/local/cuda/lib64/
 cp Video_Codec_SDK_13.0.19/Interface/* /usr/local/cuda/include
 
 temp_dir="$(mktemp -d)"
 cd "${temp_dir}"
 git clone --depth 1 --branch "v${PACKAGE_VERSION}" --recursive https://github.com/dmlc/decord
 cd decord
+
+# Fix to work with ffmpeg 6.0
+find . -type f -exec sed -i "s/AVInputFormat \*/const AVInputFormat \*/g" {} \;
+sed -i "s/[[:space:]]AVCodec \*dec/const AVCodec \*dec/" src/video/video_reader.cc
+sed -i "s/avcodec\.h>/avcodec\.h>\n#include <libavcodec\/bsf\.h>/" src/video/ffmpeg/ffmpeg_common.h
+
 mkdir build
 cd build
 cmake .. -DUSE_CUDA=ON -DCMAKE_BUILD_TYPE=Release
