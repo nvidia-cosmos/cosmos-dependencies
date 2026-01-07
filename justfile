@@ -24,10 +24,10 @@ build package_name package_version python_version torch_version cuda_version bui
 build-dummy cuda_version: (build 'cosmos-dummy' '0.1.0' '3.10' '2.7' cuda_version 'tmp/build')
 
 # Run the docker container.
-_docker base_image build_args='' run_args='':
+_docker cuda_version build_args='' run_args='':
   #!/usr/bin/env bash
   set -euxo pipefail
-  build_args="--build-arg=BASE_IMAGE={{base_image}} {{build_args}}"
+  build_args="--build-arg=CUDA_VERSION={{cuda_version}} {{build_args}}"
   docker build $build_args .
   image_tag=$(docker build $build_args -q .)
   # Mount cache directories to avoid re-downloading dependencies.
@@ -43,22 +43,16 @@ _docker base_image build_args='' run_args='':
     {{run_args}} $image_tag
 
 # Run the CUDA 12.6 docker container.
-docker-cu126 *args: (_docker 'nvidia/cuda:12.6.3-cudnn-devel-ubuntu20.04' args)
+docker-cu126 *args: (_docker '12.6.3' args)
 
 # Run the CUDA 12.8 docker container.
-docker-cu128 *args: (_docker 'nvidia/cuda:12.8.1-cudnn-devel-ubuntu20.04' args)
+docker-cu128 *args: (_docker '12.8.1' args)
 
 # Run the CUDA 12.9 docker container.
-docker-cu129 *args: (_docker 'nvidia/cuda:12.9.1-cudnn-devel-ubuntu20.04' args)
+docker-cu129 *args: (_docker '12.9.1' args)
 
 # Run the CUDA 13.0 docker container.
-docker-cu130 *args: (_docker 'nvidia/cuda:13.0.1-cudnn-devel-ubuntu24.04' args)
-
-# Run the PyTorch 25.04 docker container.
-docker-torch2504 *args: (_docker 'nvcr.io/nvidia/pytorch:25.04-py3' args)
-
-# Run the PyTorch 25.10 docker container.
-docker-torch2510 *args: (_docker 'nvcr.io/nvidia/pytorch:25.10-py3' args)
+docker-cu130 *args: (_docker '13.0.1' args)
 
 # Fix file permissions.
 fix-permissions:
