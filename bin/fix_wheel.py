@@ -25,7 +25,7 @@ from typing import Annotated
 
 import tyro
 from change_wheel_version import change_wheel_version
-from wheel_filename import parse_wheel_filename
+from wheel_filename import WheelFilename
 
 
 @dataclass
@@ -42,7 +42,7 @@ class Args:
 def main(args: Args):
     for input_path in args.input_paths:
         print(f"Fixing wheel: '{input_path}'")
-        pwf = parse_wheel_filename(input_path.name)
+        pwf = WheelFilename.parse(input_path.name)
         parts = pwf.version.split("+")
         assert len(parts) in [1, 2]
         version = parts[0]
