@@ -52,7 +52,7 @@ docker-cu128 *args: (_docker '12.8.1' args)
 docker-cu129 *args: (_docker '12.9.1' args)
 
 # Run the CUDA 13.0 docker container.
-docker-cu130 *args: (_docker '13.0.1' args)
+docker-cu130 *args: (_docker '13.0.2' args)
 
 # Fix file permissions.
 fix-permissions:

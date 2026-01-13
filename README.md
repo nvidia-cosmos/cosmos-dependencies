@@ -5,9 +5,6 @@ Repository for building and publishing Cosmos dependencies.
 Index URLs:
 
 * [all](https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/simple)
-* [cu126_torch29](https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/cu126_torch29/simple)
-* [cu128_torch29](https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/cu128_torch29/simple)
-* [cu129_torch28](https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/cu129_torch28/simple)
 * [cu130_torch29](https://nvidia-cosmos.github.io/cosmos-dependencies/v1.2.0/cu126_torch29/simple)
 
 ## Setup

@@ -30,7 +30,7 @@ from typing import Annotated
 
 import parse
 import tyro
-from wheel_filename import parse_wheel_filename
+from wheel_filename import WheelFilename
 
 _TORCH_BASE_URL = "https://download.pytorch.org"
 _TORCH_PACKAGES = [
@@ -137,7 +137,7 @@ def main(args: Args):
         url: str = asset["url"]
         hash_name, hash_value = asset["digest"].split(":")
         url += f"#{hash_name}={hash_value}"
-        pwf = parse_wheel_filename(filename)
+        pwf = WheelFilename.parse(filename)
         package_name = pwf.project.replace("_", "-")
 
         # Parse cuda/torch version
@@ -162,7 +162,7 @@ def main(args: Args):
                 continue
             url_parts = urllib.parse.urlparse(url)
             filename = urllib.parse.unquote(url_parts.path.rsplit("/", 1)[-1])
-            pwf = parse_wheel_filename(filename)
+            pwf = WheelFilename.parse(filename)
             package_name = pwf.project.replace("_", "-")
             all_wheels[index_name][package_name].add(_IndexLine(filename, url))
 
