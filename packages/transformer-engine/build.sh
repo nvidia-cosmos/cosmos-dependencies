@@ -14,7 +14,8 @@
 # limitations under the License.
 
 export NVTE_FRAMEWORK=pytorch
-export NVTE_CUDA_ARCHS="${NVTE_CUDA_ARCHS:-90}"
+NVTE_CUDA_ARCHS=$(tr -d . <<<"${TORCH_CUDA_ARCH_LIST:-90}")
+export NVTE_CUDA_ARCHS
 
 apt-get update && apt-get install -y --no-install-recommends python3-dev
 
@@ -22,10 +23,10 @@ apt-get update && apt-get install -y --no-install-recommends python3-dev
 TORCH_INCLUDE=$(python -c "import torch; print(torch.__path__[0])")/include
 if [[ ! -f "${TORCH_INCLUDE}/c10/cuda/impl/cuda_cmake_macros.h" ]]; then
 	mkdir -p "${TORCH_INCLUDE}/c10/cuda/impl"
-	cat >"${TORCH_INCLUDE}/c10/cuda/impl/cuda_cmake_macros.h" <<'EOF'
+	cat >"${TORCH_INCLUDE}/c10/cuda/impl/cuda_cmake_macros.h" <<'HEADER'
 #pragma once
 #define C10_CUDA_BUILD_SHARED_LIBS
-EOF
+HEADER
 fi
 
 pip wheel \
