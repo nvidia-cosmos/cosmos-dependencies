@@ -15,8 +15,7 @@
 
 # https://github.com/NVIDIA/TransformerEngine?tab=readme-ov-file#pip-installation
 export NVTE_FRAMEWORK=pytorch
-NVTE_CUDA_ARCHS=$(tr -d . <<<"${TORCH_CUDA_ARCH_LIST:-90}")
-export NVTE_CUDA_ARCHS
+export NVTE_CUDA_ARCHS="${TORCH_CUDA_ARCH_LIST//./}"
 
 apt-get update && apt-get install -y --no-install-recommends python3-dev
 
