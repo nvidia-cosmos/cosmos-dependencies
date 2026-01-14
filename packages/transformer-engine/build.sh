@@ -13,13 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# https://github.com/NVIDIA/TransformerEngine?tab=readme-ov-file#pip-installation
 export NVTE_FRAMEWORK=pytorch
 NVTE_CUDA_ARCHS=$(tr -d . <<<"${TORCH_CUDA_ARCH_LIST:-90}")
 export NVTE_CUDA_ARCHS
 
 apt-get update && apt-get install -y --no-install-recommends python3-dev
 
-# Create missing PyTorch header if needed (required for some PyTorch versions)
+# Create missing PyTorch header file for CUDA extension builds
 TORCH_INCLUDE=$(python -c "import torch; print(torch.__path__[0])")/include
 if [[ ! -f "${TORCH_INCLUDE}/c10/cuda/impl/cuda_cmake_macros.h" ]]; then
 	mkdir -p "${TORCH_INCLUDE}/c10/cuda/impl"
