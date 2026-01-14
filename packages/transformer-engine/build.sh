@@ -26,6 +26,10 @@ if [[ ! -f "${TORCH_INCLUDE}/c10/cuda/impl/cuda_cmake_macros.h" ]]; then
 	mkdir -p "${TORCH_INCLUDE}/c10/cuda/impl"
 	cat >"${TORCH_INCLUDE}/c10/cuda/impl/cuda_cmake_macros.h" <<'HEADER'
 #pragma once
+
+// Automatically generated header file for the C10 CUDA library.  Do not
+// include this file directly.  Instead, include c10/cuda/CUDAMacros.h
+
 #define C10_CUDA_BUILD_SHARED_LIBS
 HEADER
 fi
