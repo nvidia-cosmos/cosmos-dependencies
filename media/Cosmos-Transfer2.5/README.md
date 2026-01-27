@@ -93,7 +93,32 @@ https://github.com/user-attachments/assets/8f65a028-b8f2-4533-a466-aabf841ab3eb
 
 
 
+## Multiview Agibot
 
+
+### Chunk output vis
+![296_656371_chunk0_output_vis](https://github.com/user-attachments/assets/bf0bbc5e-e57d-412b-999d-43e9abfff7b2)
+
+### Chunk output seg
+![296_656371_chunk0_output_seg](https://github.com/user-attachments/assets/b46361e5-ff20-4460-be42-82c8ccb9eb26)
+
+### Chunk output edge
+![296_656371_chunk0_output_edge](https://github.com/user-attachments/assets/40f204ba-d8e0-4b10-aa3a-82678ca18b7c)
+
+### Chunk output depth
+![296_656371_chunk0_output_depth](https://github.com/user-attachments/assets/f38a1f74-b1ec-4eff-bc5b-9f6a69ebd1d4)
+
+### Chunk control vis
+![296_656371_chunk0_control_vis](https://github.com/user-attachments/assets/ba9ef039-595b-4fb1-b655-aa4521350565)
+
+### Chunk control seg
+![296_656371_chunk0_control_seg](https://github.com/user-attachments/assets/f2b1aae5-08af-49a0-8dc8-6f7a826600a4)
+
+### Chunk control edge
+![296_656371_chunk0_control_edge](https://github.com/user-attachments/assets/2d4adef2-66fa-49ed-9d02-5a8698c1cc6d)
+
+### Chunk control depth
+![296_656371_chunk0_control_depth](https://github.com/user-attachments/assets/c4b5360a-6cbb-4d61-bc30-25e96f8992ae)
 
 
 
