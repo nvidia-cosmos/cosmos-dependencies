@@ -59,8 +59,12 @@ fix-permissions:
   sudo chown -R $(id -u):$(id -g) .
 
 upload pattern *args:
-  gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) {{pattern}} {{args}}
-  rm -rfv {{pattern}}
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  for file in {{pattern}}; do
+    gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) $file {{args}}
+    rm -rfv $file
+  done
 
 version := `uv version --short`
 tag := 'v' + version
