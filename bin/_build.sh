@@ -16,6 +16,7 @@
 root_dir="$(pwd)"
 package_dir="${root_dir}/packages/${PACKAGE_NAME}"
 
+CUDA_VERSION=$(nvcc --version | sed -n 's/^.*release \([0-9]\+\.[0-9]\+\).*$/\1/p')
 CUDA_NAME="${CUDA_VERSION//./}"
 TORCH_NAME="${TORCH_VERSION//./}"
 
@@ -30,7 +31,7 @@ gcc --version
 printenv
 
 # Set CUDA environment variables
-export CUDA_HOME="/usr/local/cuda-${CUDA_VERSION}"
+export CUDA_HOME="/usr/local/cuda"
 # Check if CUDA_HOME is valid.
 if [ ! -d "${CUDA_HOME}/bin" ]; then
 	echo "CUDA ${CUDA_VERSION} is not installed."
