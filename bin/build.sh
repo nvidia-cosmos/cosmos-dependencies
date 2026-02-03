@@ -19,7 +19,7 @@
 # Build a package.
 
 if [[ $# -lt 5 ]]; then
-	echo "Usage: $0 <package_name> <package_version> <python_version> <torch_version> <cuda_version>" >&2
+	echo "Usage: $0 <package_name> <package_version> <python_version> <torch_version> <build_dir>" >&2
 	exit 1
 fi
 export PACKAGE_NAME="${1}"
@@ -30,8 +30,6 @@ export PYTHON_VERSION="${1}"
 shift
 export TORCH_VERSION="${1}"
 shift
-export CUDA_VERSION="${1}"
-shift
 export BUILD_DIR="${1}"
 shift
 
@@ -41,10 +39,6 @@ if [[ ! "${PYTHON_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
 fi
 if [[ ! "${TORCH_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
 	echo "Error: Torch version must be '<major>.<minor>'" >&2
-	exit 1
-fi
-if [[ ! "${CUDA_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
-	echo "Error: CUDA version must be '<major>.<minor>'" >&2
 	exit 1
 fi
 
@@ -68,7 +62,6 @@ env -i \
 	PACKAGE_VERSION="${PACKAGE_VERSION}" \
 	PYTHON_VERSION="${PYTHON_VERSION}" \
 	TORCH_VERSION="${TORCH_VERSION}" \
-	CUDA_VERSION="${CUDA_VERSION}" \
 	OUTPUT_NAME="${OUTPUT_NAME}" \
 	OUTPUT_DIR="${OUTPUT_DIR}" \
 	PATH="${PATH:-}" \

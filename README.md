@@ -45,21 +45,21 @@ just docker-<cuda_version>
 Optionally, test the environment:
 
 ```shell
-just build-dummy <cuda_version>
+just build-dummy
 ```
 
 Build a single package:
 
 ```shell
-just build <package_name> <package_version> <python_version> <torch_version> <cuda_version>
+just build <package_name> <package_version> <python_version> <torch_version>
 ```
 
 Example:
 
 ```shell
 just docker-cu128
-just build-dummy 12.8
-just build natten 0.21.0 3.12 2.7 12.8
+just build-dummy
+just build natten 0.21.1 3.12 2.9
 ```
 
 On the host, fix file permissions:
@@ -83,14 +83,6 @@ just index-serve
 ```
 
 1. Open a PR and merge to [cosmos-dependencies](https://github.com/nvidia-cosmos/cosmos-dependencies).
-
-## Bump Version
-
-```shell
-gh release download --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) -D tmp/assets --pattern '*'
-uv version --bump minor
-gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) tmp/assets/*
-```
 
 ## Version Constraints
 

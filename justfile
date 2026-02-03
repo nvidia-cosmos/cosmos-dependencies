@@ -17,11 +17,11 @@ _pre-commit *args: setup
 lint: _pre-commit
 
 # Build a package.
-build package_name package_version python_version torch_version cuda_version build_dir='build' *args:
-  ./bin/build.sh {{package_name}} {{package_version}} {{python_version}} {{torch_version}} {{cuda_version}} {{build_dir}} {{args}}
+build package_name package_version python_version torch_version build_dir='build' *args:
+  ./bin/build.sh {{package_name}} {{package_version}} {{python_version}} {{torch_version}} {{build_dir}} {{args}}
 
 # Build a dummy package.
-build-dummy cuda_version: (build 'cosmos-dummy' '0.1.0' '3.10' '2.7' cuda_version 'tmp/build')
+build-dummy: (build 'cosmos-dummy' '0.1.0' '3.12' '2.9' 'tmp/build')
 
 # Run the docker container.
 _docker cuda_version build_args='' run_args='':
