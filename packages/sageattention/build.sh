@@ -18,6 +18,15 @@ export EXT_PARALLEL=4
 export NVCC_APPEND_FLAGS="--threads 8"
 export MAX_JOBS=32
 
+case "$PACKAGE_VERSION" in
+2.2.0.dev1)
+	PACKAGE_REVISION="d1a57a546c3d395b1ffcbeecc66d81db76f3b4b5"
+	;;
+*)
+	PACKAGE_REVISION="v${PACKAGE_VERSION}"
+	;;
+esac
+
 # TODO(joallen):
 export TORCH_CUDA_ARCH_LIST='9.0' # Hopper
 # export TORCH_CUDA_ARCH_LIST='10.0;12.0' # Blackwell
@@ -28,5 +37,5 @@ pip wheel \
 	--no-build-isolation \
 	--check-build-dependencies \
 	--wheel-dir="${OUTPUT_DIR}" \
-	"git+https://github.com/thu-ml/SageAttention.git@v${PACKAGE_VERSION}" \
+	"git+https://github.com/thu-ml/SageAttention.git@${PACKAGE_REVISION}" \
 	"$@"
