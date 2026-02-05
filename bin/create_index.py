@@ -135,8 +135,9 @@ def main(args: Args):
             continue
 
         url: str = asset["url"]
-        hash_name, hash_value = asset["digest"].split(":")
-        url += f"#{hash_name}={hash_value}"
+        if "digest" in asset:
+            hash_name, hash_value = asset["digest"].split(":")
+            url += f"#{hash_name}={hash_value}"
         pwf = WheelFilename.parse(filename)
         package_name = pwf.project.replace("_", "-")
 
