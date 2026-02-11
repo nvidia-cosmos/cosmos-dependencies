@@ -25,5 +25,5 @@ pip wheel \
 	--no-build-isolation \
 	--check-build-dependencies \
 	--wheel-dir="${OUTPUT_DIR}" \
-	"git+https://github.com/alihassanijr/flash_attn_3_nv.git@c71dbf08b63e871fd38e4d1b58ae0e6116f2f607" \
+	"git+https://github.com/alihassanijr/flash_attn_3_nv.git@v${PACKAGE_VERSION}" \
 	"$@"
