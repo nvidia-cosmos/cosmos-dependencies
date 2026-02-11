@@ -36,8 +36,8 @@ BSD-3-Clause
 https://Python-Markdown.github.io/
 BSD 3-Clause License
 
-Copyright 2007, 2008 The Python Markdown Project (v. 1.7 and later)  
-Copyright 2004, 2005, 2006 Yuri Takhteyev (v. 0.2-1.6b)  
+Copyright 2007, 2008 The Python Markdown Project (v. 1.7 and later)
+Copyright 2004, 2005, 2006 Yuri Takhteyev (v. 0.2-1.6b)
 Copyright 2004 Manfred Stienstra (the original version)
 
 Redistribution and use in source and binary forms, with or without
@@ -5413,7 +5413,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 --------------------------------------------------------------------------------
 
-The files under the directory sympy/parsing/latex 
+The files under the directory sympy/parsing/latex
 are directly copied from latex2sympy project and are licensed as:
 
 Copyright 2016, latex2sympy
@@ -5526,7 +5526,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 
-The PyTorch repository and source distributions bundle several libraries that are 
+The PyTorch repository and source distributions bundle several libraries that are
 compatibly licensed.  We list these here.
 
 Name: DCGM
@@ -7008,7 +7008,7 @@ SOFTWARE.
 ----------------------------------------------------------------------------------------
 Copyright (c) Microsoft Corporation
 
-All rights reserved. 
+All rights reserved.
 
 MIT License
 
@@ -7476,7 +7476,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
- */ 
+ */
 
 
 /pytorch/third_party/cutlass/LICENSE.txt
@@ -8158,7 +8158,7 @@ SOFTWARE.
 The MIT License (MIT)
 
 Copyright (c) 2015 Martin Moene
-Copyright (c) 2015 Microsoft Corporation. All rights reserved. 
+Copyright (c) 2015 Microsoft Corporation. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -10810,27 +10810,27 @@ THE SOFTWARE.
 
 /pytorch/third_party/opentelemetry-cpp/third_party/ms-gsl/LICENSE
 -----------------------------------------------------------------
-Copyright (c) 2015 Microsoft Corporation. All rights reserved. 
- 
-This code is licensed under the MIT License (MIT). 
+Copyright (c) 2015 Microsoft Corporation. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy 
-of this software and associated documentation files (the "Software"), to deal 
-in the Software without restriction, including without limitation the rights 
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
-of the Software, and to permit persons to whom the Software is furnished to do 
-so, subject to the following conditions: 
+This code is licensed under the MIT License (MIT).
 
-The above copyright notice and this permission notice shall be included in all 
-copies or substantial portions of the Software. 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
-THE SOFTWARE. 
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
 
 /pytorch/third_party/fbgemm/fbgemm_gpu/src/quantize_ops/mx/LICENSE
@@ -11954,15 +11954,15 @@ HEREUNDER IS ON AN "AS IS" BASIS, AND THE UNIVERSITY OF NORTH CAROLINA AT
 CHAPEL HILL HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES,
 ENHANCEMENTS, OR MODIFICATIONS.
 
-The authors may be contacted via:  
+The authors may be contacted via:
 
 US Mail:             Eric Larsen, Stefan Gottschalk
                       Department of Computer Science
                       Sitterson Hall, CB #3175
                       University of North Carolina
-                      Chapel Hill, NC 27599-3175  
+                      Chapel Hill, NC 27599-3175
 
-Phone:               (919) 962-1749 
+Phone:               (919) 962-1749
 
 Email:               geom@cs.unc.edu
 
@@ -12799,7 +12799,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------------------
 Copyright (c) Microsoft Corporation
 
-All rights reserved. 
+All rights reserved.
 
 MIT License
 
@@ -14137,10 +14137,10 @@ This basically means: do what you want with it.
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -14323,7 +14323,7 @@ BSD
 https://github.com/pytorch/vision
 BSD 3-Clause License
 
-Copyright (c) Soumith Chintala 2016, 
+Copyright (c) Soumith Chintala 2016,
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -15225,5 +15225,3 @@ LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE A
 EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
