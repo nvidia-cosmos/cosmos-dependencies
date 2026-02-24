@@ -35,7 +35,7 @@ _docker cuda_version build_args='' run_args='':
   docker run \
     -it \
     --rm \
-    --gpus 1 \
+    --runtime=nvidia \
     -v .:/app \
     -v /app/.venv \
     -v /root/.cache:/root/.cache \
