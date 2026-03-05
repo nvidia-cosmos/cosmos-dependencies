@@ -72,7 +72,7 @@ index_dir := 'docs/' + tag
 
 # Create the package index
 _index-create *args:
-  uv run bin/create_index.py -i assets -o {{index_dir}} --tag={{tag}} {{args}}
+  uv run bin/create_index.py --wheels-file=wheels.txt -o {{index_dir}} --tag={{tag}} {{args}}
 
 # Create the package index
 index-create *args: license (_index-create args)
@@ -99,11 +99,12 @@ ignore_package_licenses := "nvidia-*"
 
 # Run licensecheck
 _licensecheck *args:
-  uv run --all-groups licensecheck --show-only-failing --only-licenses {{allow_licenses}} --ignore-packages {{ignore_package_licenses}} --zero {{args}}
+  uvx licensecheck@2025.1.0 --show-only-failing --only-licenses {{allow_licenses}} --ignore-packages {{ignore_package_licenses}} --zero {{args}}
 
 # Run pip-licenses
 _pip-licenses *args:
-  uv run --all-groups pip-licenses --python .venv/bin/python --format=plain-vertical --with-license-file --no-license-path --no-version --with-urls --output-file ATTRIBUTIONS.md {{args}}
+  uv sync --all-groups
+  uvx pip-licenses@5.5.1 --python .venv/bin/python --format=plain-vertical --with-license-file --no-license-path --no-version --with-urls --output-file ATTRIBUTIONS.md {{args}}
   pre-commit run --files ATTRIBUTIONS.md || true
 
 # Check licenses
