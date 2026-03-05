@@ -15,6 +15,8 @@
 
 import torch
 
+MIN_CUDA_ARCH = (8, 0)  # Ampere
+
 
 def _parse_torch_cuda_arch(name: str) -> tuple[int, int]:
     """Parse CUDA architecture from a string of the form sm_<major><minor>."""
@@ -30,17 +32,24 @@ def _get_torch_cuda_arch_list() -> list[tuple[int, int]]:
     for arch in torch.cuda.get_arch_list():
         if not arch.startswith("sm_"):
             continue
-        major, minor = _parse_torch_cuda_arch(arch)
-        if major < 8:
+        ver = _parse_torch_cuda_arch(arch)
+        if ver < MIN_CUDA_ARCH:
             # Only support Ampere and later.
             continue
-        arch_list.append((major, minor))
+        arch_list.append(ver)
     return arch_list
 
 
-def build_env() -> None:
+def _format_build_env() -> list[str]:
     """Print the build environment variables."""
+    lines: list[str] = []
     _GLIBCXX_USE_CXX11_ABI = 1 if torch.compiled_with_cxx11_abi() else 0
-    print(f"export _GLIBCXX_USE_CXX11_ABI={_GLIBCXX_USE_CXX11_ABI}")
+    lines.append(f"export _GLIBCXX_USE_CXX11_ABI={_GLIBCXX_USE_CXX11_ABI}")
     TORCH_CUDA_ARCH_LIST = ";".join([f"{major}.{minor}" for major, minor in _get_torch_cuda_arch_list()])
-    print(f"export TORCH_CUDA_ARCH_LIST='{TORCH_CUDA_ARCH_LIST}'")
+    lines.append(f"export TORCH_CUDA_ARCH_LIST='{TORCH_CUDA_ARCH_LIST}'")
+    return lines
+
+
+def build_env() -> None:
+    for line in _format_build_env():
+        print(line)

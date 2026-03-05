@@ -1,16 +1,21 @@
 default:
   just --list
 
-# Install pre-commit
-_pre-commit-install *args:
-  uv tool install "pre-commit>=4.3.0"
-  pre-commit install -c .pre-commit-config-base.yaml {{args}}
+# Install the Python version specified in .python-version
+_python-install:
+  uv python install
 
 # Setup the repository
-setup: _pre-commit-install
+setup: _python-install
+
+# Setup pre-commit
+_pre-commit-setup *args: setup
+  uv tool install "pre-commit>=4.3.0"
+  pre-commit install -c ci/.pre-commit-config-base.yaml {{args}}
 
 # Run pre-commit
-_pre-commit *args: setup
+_pre-commit *args: _pre-commit-setup
+  pre-commit run -c ci/.pre-commit-config-base.yaml -a {{args}}
   pre-commit run -a {{args}} || pre-commit run -a {{args}}
 
 # Run linting and formatting
@@ -103,7 +108,7 @@ _licensecheck *args:
 
 # Run pip-licenses
 _pip-licenses *args:
-  uv sync --all-groups
+  uv sync
   uvx pip-licenses@5.5.1 --python .venv/bin/python --format=plain-vertical --with-license-file --no-license-path --no-version --with-urls --output-file ATTRIBUTIONS.md {{args}}
   pre-commit run --files ATTRIBUTIONS.md || true
 

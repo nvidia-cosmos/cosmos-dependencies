@@ -21,7 +21,7 @@ repos:
     rev: v1.2.0
     hooks:
       - id: addlicense
-        args: ["-f", "bin/license.txt"]
+        args: ["-f", "ci/license.txt"]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
@@ -33,7 +33,7 @@ repos:
     hooks:
       - id: uv-lock
         name: Generate uv lock files for projects
-        entry: ./bin/uv_lock.sh
+        entry: ./ci/uv_lock.sh
         language: script
         files: pyproject\.toml$
   - repo: https://github.com/astral-sh/ruff-pre-commit
