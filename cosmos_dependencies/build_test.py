@@ -13,7 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from cosmos_dependencies.build import _parse_torch_cuda_arch, build_env
+import torch
+
+from cosmos_dependencies.build import _format_build_env, _get_torch_cuda_arch_list, _parse_torch_cuda_arch
 
 
 def test_parse_torch_cuda_arch():
@@ -22,5 +24,10 @@ def test_parse_torch_cuda_arch():
     assert _parse_torch_cuda_arch("sm_120") == (12, 0)
 
 
-def test_print_build_env():
-    build_env()
+def test_build_env():
+    assert torch.__version__ == "2.10.0+cu128"
+    assert _get_torch_cuda_arch_list() == [(8, 0), (8, 6), (9, 0), (10, 0), (12, 0)]
+    assert _format_build_env() == [
+        "export _GLIBCXX_USE_CXX11_ABI=1",
+        "export TORCH_CUDA_ARCH_LIST='8.0;8.6;9.0;10.0;12.0'",
+    ]
