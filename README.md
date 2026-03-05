@@ -84,6 +84,13 @@ just index-serve
 
 1. Open a PR and merge to [cosmos-dependencies](https://github.com/nvidia-cosmos/cosmos-dependencies).
 
+## Bump Version
+
+```shell
+uv version --bump=minor
+gh release create --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short)
+```
+
 ## Version Constraints
 
 * cuda

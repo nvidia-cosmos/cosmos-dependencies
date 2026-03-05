@@ -23,12 +23,10 @@ import json
 import shutil
 import subprocess
 import urllib.parse
-import warnings
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Annotated
 
-import parse
 import tyro
 from wheel_filename import WheelFilename
 
@@ -97,15 +95,14 @@ def _write_html(html_path: Path, lines: set[_IndexLine]) -> None:
 
 @dataclass(kw_only=True, frozen=True)
 class Args:
-    input_dir: Annotated[Path, tyro.conf.arg(aliases=("-i",))]
-    """Input directory."""
     output_dir: Annotated[Path, tyro.conf.arg(aliases=("-o",))]
     """Output directory."""
-    tag: str
-    """Release tag."""
-
     repo: str = "nvidia-cosmos/cosmos-dependencies"
     """GitHub repository."""
+    tag: str
+    """Release tag."""
+    wheels_file: Path | None = None
+    """Wheels file."""
 
 
 def main(args: Args):
@@ -124,11 +121,10 @@ def main(args: Args):
     ]
     assets = json.loads(subprocess.check_output(cmd, text=True))["assets"]
 
-    # Group wheels by cuda/torch version and package name
-    all_wheels: dict[str, dict[str, set[_IndexLine]]] = collections.defaultdict(lambda: collections.defaultdict(set))
+    # Group wheels by package name
+    all_wheels: dict[str, set[_IndexLine]] = collections.defaultdict(set)
 
     # Get wheels from release assets
-    version_pattern = parse.compile("{version}+cu{cuda_version:d}.torch{torch_version:d}", case_sensitive=True)
     for asset in assets:
         filename: str = asset["name"]
         if not filename.endswith(".whl"):
@@ -140,21 +136,12 @@ def main(args: Args):
         pwf = WheelFilename.parse(filename)
         package_name = pwf.project.replace("_", "-")
 
-        # Parse cuda/torch version
-        match = version_pattern.parse(pwf.version)
-        if match is None:
-            warnings.warn(f"Skipping invalid wheel filename: {filename}")
-            continue
-        index_name = f"cu{match['cuda_version']}_torch{match['torch_version']}"
-
-        all_wheels[index_name][package_name].add(_IndexLine(filename, url))
+        all_wheels[package_name].add(_IndexLine(filename, url))
 
     # Parse wheel URL files
-    urls_files = args.input_dir.glob("*.txt")
-    assert urls_files
-    for urls_file in urls_files:
-        index_name = urls_file.stem
-        urls = urls_file.read_text().splitlines()
+    if args.wheels_file is not None:
+        index_name = args.wheels_file.stem
+        urls = args.wheels_file.read_text().splitlines()
         for url in urls:
             url = url.strip()
             if not url or url.startswith("#"):
@@ -167,36 +154,11 @@ def main(args: Args):
             all_wheels[index_name][package_name].add(_IndexLine(filename, url))
 
     all_lines: dict[str, set[_IndexLine]] = collections.defaultdict(set)
-
-    # Create cuda/torch specific indices
-    for index_name, index_wheels in all_wheels.items():
-        index_dir = args.output_dir / index_name / "simple"
-        cuda_name, _torch_name = index_name.split("_")
-        index_lines = set()
-
-        # Create package indices
-        for package_name, package_wheels in index_wheels.items():
-            index_lines.add(_IndexLine(package_name))
-            all_lines[package_name].update(package_wheels)
-            _write_html(
-                index_dir / package_name / "index.html",
-                package_wheels,
-            )
-
-        for package_name in _TORCH_PACKAGES:
-            index_lines.add(_IndexLine(package_name))
-            _download_html(
-                f"{_TORCH_BASE_URL}/whl/{cuda_name}/{package_name}/",
-                index_dir / package_name / "index.html",
-                base_url=_TORCH_BASE_URL,
-            )
-        _write_html(
-            index_dir / "index.html",
-            index_lines,
-        )
+    for package_name, package_wheels in all_wheels.items():
+        all_lines[package_name].update(package_wheels)
 
     # Create global index
-    index_dir = args.output_dir / "simple"
+    index_dir = args.output_dir
     index_lines = set(_IndexLine(package_name) for package_name in all_lines)
     for package_name in _TORCH_PACKAGES:
         index_lines.add(_IndexLine(package_name))
