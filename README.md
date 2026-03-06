@@ -69,7 +69,7 @@ just fix-permissions
 1. Upload wheels
 
 ```shell
-just upload <wheel_path>
+just upload "build/**/*.whl"
 ```
 
 1. Create and locally host the package index
