@@ -67,8 +67,7 @@ upload pattern *args:
   #!/usr/bin/env bash
   set -euxo pipefail
   for file in {{pattern}}; do
-    gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) $file {{args}}
-    rm -rfv $file
+    gh release upload --repo nvidia-cosmos/cosmos-dependencies v$(uv version --short) $file {{args}} && rm -rfv $file || true
   done
 
 version := `uv version --short`
