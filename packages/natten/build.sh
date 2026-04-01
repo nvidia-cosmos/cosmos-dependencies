@@ -14,8 +14,8 @@
 # limitations under the License.
 
 case "$PACKAGE_VERSION" in
-0.21.6.dev5)
-	PACKAGE_REVISION="2346f62ca9bb1c632d24a06ad4765c128a03ad4f"
+0.21.6.dev6)
+	PACKAGE_REVISION="07c82f517b90342a0be5d5278acb9af8d1ebd3fe"
 	;;
 *)
 	PACKAGE_REVISION="v${PACKAGE_VERSION}"
