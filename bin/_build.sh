@@ -71,4 +71,7 @@ popd || exit 1
 ccache --show-stats
 
 # Fix wheel filenames.
-uv run bin/fix_wheel.py -i "${OUTPUT_DIR}"/*.whl --version="${PACKAGE_VERSION}" --local-version="cu${CUDA_NAME}.torch${TORCH_NAME}"
+# Optionally append a build-variant suffix to the local version (e.g. LOCAL_VERSION_SUFFIX=gb300
+# -> '...+cu130.torch210.gb300') to distinguish a custom build from the upstream wheel.
+LOCAL_VERSION="cu${CUDA_NAME}.torch${TORCH_NAME}${LOCAL_VERSION_SUFFIX:+.${LOCAL_VERSION_SUFFIX}}"
+uv run bin/fix_wheel.py -i "${OUTPUT_DIR}"/*.whl --version="${PACKAGE_VERSION}" --local-version="${LOCAL_VERSION}"
